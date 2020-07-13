@@ -5,7 +5,7 @@ This repository provides an end to end framework for extracting features from M-
 
 * **quality_classification**: This includes all files needed to train a classification network to classify regions in an echocardiogram as belonging to good or bad acquisition quality regions.
 * **heart_segmentation**: This includes all files needed to train a segmentation network to classify each pixel in an image as belonging or not to the inner heart. The segmentation is then used to extract features, such as the Left Ventricle Inner Diameter (LVID) in diastole and systole, the heart rate etc.
-* **end2end_framework.py**: This script can be used to extract features and create graphs of a single echocardiogram. For more information on how to run this script see [Running for one echocardiogram](#Running for one echocardiogram)
+* **end2end_framework.py**: This script can be used to extract features and create graphs of a single echocardiogram. For more information on how to run this script see [Running for one echocardiogram](#Running-for-one-echocardiogram)
 
 
 ## Data
