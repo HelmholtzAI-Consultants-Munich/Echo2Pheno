@@ -57,6 +57,7 @@ To test the performance of the trained model or models you can run the test.py s
 
 * -m: The path to the model to be loaded. See next argument for further explanation of how to set this.
 * -b: Set to True if you wish to save multiple models which were trained (see -a argument above in train.py). In this case you need to specify the path in which the models are saved (e.g. checkpoints) and the script looks for files with the same names defined in train.py. Default is False so a single model will be tested and the path included the .pth file needs to be specified with -m.
+* -o: If this is set to True then a csv file is created _test-results.csv_ where the name, ground truth and predicted label of each test image are written. This can later be used for evaluating the performance of the model.
 
 _The rest of the arguments also exist in train.py and have identical explanations so are not given here._
 
