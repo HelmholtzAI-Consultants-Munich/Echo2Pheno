@@ -38,6 +38,7 @@ To train a quality acquisition classification network run train.py. The followin
 * -f: If you wish to start training with a pre-trained network define here the model you wish to load
 * -v: With this argument you can define the training-validation split. The default value is 10, meaning that 10% of the data will be set aside for validation
 * -o: Define the ouptut path, i.e. where you model(s) will be saved. The default is the './checkpoints' directory which will be automatically created if it does not exist
+
 **Example run**
 ```
 python train.py -d ./datasets/cardioMice/train -a True -e 20 -b 4 -l 0.0001 -v 20
