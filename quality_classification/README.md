@@ -51,6 +51,7 @@ To test the performance of the trained model or models you can run the test.py s
 * -b: Set to True if you wish to save multiple models which were trained (see -a argument above in train.py). In this case you need to specify the path in which the models are saved (e.g. checkpoints) and the script looks for files with the same names defined in train.py. Default is False so a single model will be tested and the path included the .pth file needs to be specified with -m.
 
 _The rest of the arguments also exist in train.py and have identical explanations so are not given here._
+
 **Example run**
 ```
 python test.py -d ./datasets/cardioMice/test
