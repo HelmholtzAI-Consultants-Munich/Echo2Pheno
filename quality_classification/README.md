@@ -1,8 +1,9 @@
 # Quality Classification
 ## What is this?
 This repo provides all required code for training a network on echocardiography data to classify the quality of acquisition into good and bad regions.
+
 ## Data
-The data for training the model need to be images of size 350x350. In order to create such images from a raw dicom file use the script .... When running ... windows of the image data are created and saved in both png and npy format. An example of a training image can be seen here:
+The data for training the model need to be images of size 350x350. In order to create such images from a raw dicom file use the script ```create_dataset.py``` When running ```create_dataset.py``` windows of the image data are created and saved in both png and npy format. An example of a training image can be seen here:
 
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/train-acquisition-example.png)
 
