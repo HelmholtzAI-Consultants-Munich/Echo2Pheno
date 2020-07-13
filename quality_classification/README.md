@@ -7,6 +7,7 @@ The data for training the model need to be images of size 350x350. In order to c
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/train-acquisition-example.png)
 
 The data should be organized as folllows:
+```
 --data_path
   --pngs
     --good 
@@ -14,6 +15,8 @@ The data should be organized as folllows:
   --npys
     --good
     --bad
+```
+
 Note that only one or both of the directories pngs and npys need be defined but later during training you need to define with which of data you are training and the corresponding directory needs to exist.
 
 ## Training 
@@ -37,7 +40,18 @@ python train.py -d ./datasets/cardioMice/train -a True -e 20 -b 4 -l 0.0001 -v 2
 ```
 
 ## Model
-The model architecture is described in model.py. It includes five convolutional blocks (Convolution->ReLU->BatchNorm->MaxPooling) followed by a fully connected layer and sigmoid function. The input of the network is an image of size 256x256. If you wish to change the size of the input then you will need to adjust the number of input features in the fully connected layer at the end of the network. 
+The model architecture is described in model.py. It includes five convolutional blocks (Convolution->ReLU->BatchNorm->MaxPooling) followed by a fully connected layer and sigmoid function. The input of the network is an image of size 256x256. If you wish to change the size of the input then you will need to adjust the number of input features in the fully connected layer at the end of the network. The output of several layers are returned from the forward function of the model class but in order to get the classification result 0 or 1 (corresponding to bad and good acquisition quality) the output of the final layer (sigmoid) needs to be rounded (as is done in train.py).
 
 ## Testing
+To test the performance of the trained model or models you can run the test.py script.
+**Required argument**
+* -d: Path of images with which to test model. Note that you should give the root path "data_path" as defined above
+**Optional arguments**
+* -m: The path to the model to be loaded. See next argument for further explanation of how to set this.
+* -b: Set to True if you wish to save multiple models which were trained (see -a argument above in train.py). In this case you need to specify the path in which the models are saved (e.g. checkpoints) and the script looks for files with the same names defined in train.py. Default is False so a single model will be tested and the path included the .pth file needs to be specified with -m.
+_The rest of the arguments also exist in train.py and have identical explanations so are not given here._
+**Example run**
+```
+python test.py -d ./datasets/cardioMice/test
+```
 
