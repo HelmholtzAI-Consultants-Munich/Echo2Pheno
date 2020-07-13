@@ -21,9 +21,13 @@ Note that only one or both of the directories pngs and npys need be defined but 
 
 ## Training 
 To train a quality acquisition classification network run train.py. The following arguments should/can be given:
+
 **Required argument**
-* -d: Path to train dataset. Note that you should give the root path "data_path" as defined above
+
+* -d: Path to train dataset. Note that you should give the root path "data_path" as defined above.
+
 **Optional arguments**
+
 * -t: The data type as explained above should be either 'png' or 'npy'. Default is 'png' 
 * -a: train.py gives you the option to either train a single network or multiple netorks, i.e. bootstrapping. The default option is to run a single network but if you wish to train multiple set this argument to True
 * -r: If you have set -a to True (see above) you can here define how many networks you wish to train. Default is 10
@@ -44,9 +48,13 @@ The model architecture is described in model.py. It includes five convolutional 
 
 ## Testing
 To test the performance of the trained model or models you can run the test.py script.
+
 **Required argument**
+
 * -d: Path of images with which to test model. Note that you should give the root path "data_path" as defined above
+
 **Optional arguments**
+
 * -m: The path to the model to be loaded. See next argument for further explanation of how to set this.
 * -b: Set to True if you wish to save multiple models which were trained (see -a argument above in train.py). In this case you need to specify the path in which the models are saved (e.g. checkpoints) and the script looks for files with the same names defined in train.py. Default is False so a single model will be tested and the path included the .pth file needs to be specified with -m.
 
