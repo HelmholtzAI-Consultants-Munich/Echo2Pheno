@@ -27,6 +27,18 @@ Both models for quality_classification and heart_segmentation can be trained fro
 
 ## Running for one echocardiogram
 
+**Required arguments**
+
+* -i: The path to the dicom file you wish to extract features from
+* -m: The body mass in **grams** of the current mouse you wish to extract features from
+
+**Optional arguments**
+
+* -o: The name of the directory to save graphs and images to. Default is the current working directory
+* -g: This argument's default value is _True_, meaning output graphs and images will be created and saved. if you wish to turn this functionality off set this argument to _False_.
+* -w: With this argument we define whether we wish to save only statistics of features (such as median, max etc.) or all features extracted for good regions. The default value is _'all'_ so all features are extracted but can be set to _'stats'_ if we only wish to extracted statistics.
+* -f: With this argument we specify the name of the csv file to write features to. The default value is _'output_all.csv'_ as the default value of -w is _'all'_ but it is suggested to set to something like _'output_stats.csv'_ if you alsi change the -w argument. If the file already exists then the new features will be appended as new rows to the file, but if the file doesn't already exist then it is automatically created.
+
 **Example run**
 ```
 python end2end_framework.py -i home/datasets/cardioMice/30516265.dcm -m 40 -o 30516265
@@ -34,10 +46,13 @@ python end2end_framework.py -i home/datasets/cardioMice/30516265.dcm -m 40 -o 30
 
 ## Running for an entire experiment
 
+If you wish to run the automatic feature estimation framework for multiple mice then you can run the ```run4all.py``` script. This will recursively call the ```end2end_framework.py```. The arguments of this script are the similar to those of the ```end2end_framework.py``` with the difference that the -i argument should take the path to the directory containing the dicom files from which we wish to extract features.
+
 **Example run**
 ```
 python run4all.py -i home/datasets/cardioMice/ -m 40 -w all
 ```
 
 ## Results
-Example of outputs of running the end2end_framework
+Example of outputs of running the ```end2end_framework.py```
+
