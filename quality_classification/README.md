@@ -78,3 +78,10 @@ _The rest of the arguments also exist in train.py and have identical explanation
 python test.py -d ./datasets/cardioMice/test
 ```
 
+## Results
+During training 10 networks were trained for 15 epochs with a batch size of four and a learning rate of 0.0001 for images of size 256x256. For testing all network were used; their sigmoid outputs were summed and the final average sigmoid was rounded to either zero or one with a threshold of 0.5. The performance of this averaged prediction on the test set is given here:
+
+Accuracy | FPR | FNR | F1 Score 
+-------| ------------- | ------------- | ------------- 
+96.428 | 0.118 | 0.007 | 0.976
+
