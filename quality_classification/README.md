@@ -13,9 +13,7 @@ TS_short_3 | 1.2 | 1.8 | 0 | 0.9
 TS_short_4 | 0.9 3.0 | 1.5 4.3 | 1.6 | 3.1
 TS_short_5 | 1.6 | 3.7 | 0.4 | 1.6
 
-![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/csv_example.png | width=10)
-
-An example of an image created for training can be seen here:
+As you can see from the example below in recording _TS_short_4_ multiple good or bad quality regions can be defined. Then the times need to be seperated by a single space. An example of an image created for training can be seen here:
 
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/train-acquisition-example.png)
 
