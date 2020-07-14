@@ -82,7 +82,7 @@ python test.py -d ./datasets/heartSegData/test/test_img.png
 
 The network was trained for 20 epochs with a batch size of four and a learning rate of 0.0001 on images of size 256x256. Results on train, validation and test set can be seen here:
 
-| Loss | DICE | MSE 
+__ | Loss | DICE | MSE 
 -------| ------------- | ------------- | ------------- 
 Train | 0.054 | 0.982| 0.020
 Validation | 0.049 | 0.982  | 0.018
