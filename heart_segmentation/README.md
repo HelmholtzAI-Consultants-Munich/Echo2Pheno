@@ -16,9 +16,10 @@ A preprocessing script was then used to create segmentation masks from these ann
 <!---
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/TS_Short_9_good_1_nwin2_m.png)--->
 
-<img src="https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/TS_Short_9_good_1_nwin2.png" width="300">
+Image         |  Mask
+:-------------------------:|:-------------------------:
+<img src="https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/TS_Short_9_good_1_nwin2.png" width="300">  |  <img src="https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/TS_Short_9_good_1_nwin2_m.png" width="300">
 
-<img src="https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/TS_Short_9_good_1_nwin2_m.png" width="300">
 
 ## Training
 
