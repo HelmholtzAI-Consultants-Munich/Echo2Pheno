@@ -9,6 +9,16 @@ This repository provides an end to end framework for extracting features from M-
 * **run4all.py**: This script can be used to extract features and create graphs of multiple echocardiograms saved in a single directory. For more information on how to run this script see [Running for an entire experiment](#Running-for-an-entire-experiment).
 * **timeseries.py**: Helper class and functions for running the two scripts above.
 
+## Installation
+
+To install the necessary packages for this framework run:
+
+```
+pip install -r requirements.txt
+```
+
+If you are using conda first install pip by: ```conda install pip```
+
 ## Data
 
 The end2end framework extracts useful features and graphs from echocardiorgaphy data. The data needs to be in dicom format. All data used was of type Ultrasound Multi Frame Image and contained a total of 49 frames of overlapping regions. 
