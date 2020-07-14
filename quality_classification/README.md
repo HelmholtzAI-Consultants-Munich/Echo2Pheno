@@ -46,7 +46,7 @@ python train.py -d ./datasets/cardioMice/train -a True -e 20 -b 4 -l 0.0001 -v 2
 ```
 
 ## Model
-The model architecture is described in model.py. It includes five convolutional blocks (Convolution->ReLU->BatchNorm->MaxPooling) followed by a fully connected layer and sigmoid function. The input of the network is an image of size 256x256. If you wish to change the size of the input then you will need to adjust the number of input features in the fully connected layer at the end of the network. The output of several layers are returned from the forward function of the model class but in order to get the classification result 0 or 1 (corresponding to bad and good acquisition quality) the output of the final layer (sigmoid) needs to be rounded (as is done in train.py).
+The model architecture is described in ```model.py```. It includes five convolutional blocks (Convolution->ReLU->BatchNorm->MaxPooling) followed by a fully connected layer and sigmoid function. The input of the network is an image of size 256x256. If you wish to change the size of the input then you will need to adjust the number of input features in the fully connected layer at the end of the network. The output of several layers are returned from the forward function of the model class but in order to get the classification result 0 or 1 (corresponding to bad and good acquisition quality) the output of the final layer (sigmoid) needs to be rounded (as is done in train.py).
 
 ## Testing
 To test the performance of the trained model or models you can run the test.py script.
