@@ -1,4 +1,5 @@
 import os
+import sys
 import argparse
 import logging
 
@@ -10,9 +11,12 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 
-from .utils import dice_confusion_matrix
-from .quicknat import QuickNat
-from .dataset import BasicDataset, ResizeNpy
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.join(SCRIPT_DIR, PACKAGE_PARENT))
+from heart_segmentation.utils import dice_confusion_matrix
+from heart_segmentation.quicknat import QuickNat
+from heart_segmentation.dataset import BasicDataset, ResizeNpy
 
 def get_vols(mask, orig_size):
     """
@@ -101,7 +105,7 @@ def predict_single(net, device, img_path, size):
     """
     sig = torch.nn.Sigmoid()
     # if the image path is given load the image from disk
-    if img_path is str:
+    if type(img_path) == str:
         img = Image.open(img_path)
         img = np.array(img.convert('L'))
     else:
@@ -210,9 +214,9 @@ def predict_all(net, device, test_loader, save_dir):
 def get_args():
     parser = argparse.ArgumentParser(description='Predict label for test images',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--model', '-m', default='checkpoints', metavar='FILE',
+    parser.add_argument('--model', '-m', default='checkpoints/heart-seg-net.pt', metavar='FILE',
                         help="Specify the file in which the model is stored")
-    parser.add_argument('--input', '-i', metavar='INPUT', required=True,
+    parser.add_argument('--datapath', '-d', required=True,
                         help='Specify path of input images or single image full path name')
     parser.add_argument('--size', '-s', metavar='ImgS', type=int, default=256,
                         help='Specufy image width and height')
@@ -247,15 +251,17 @@ if __name__ == "__main__":
     print("Model loaded !")
 
     # if a single file has been given make heart estimation and plot graphs of lvid and lv vol
-    if args.input.endswith('.png'):
-        mask, orig_size = predict_single(net, device, args.input, args.size)
+    if args.datapath.endswith('.png'):
+        mask, orig_size = predict_single(net, device, args.datapath, args.size)
         volumes, lvids = get_vols(mask, orig_size)
         plot_graph(volumes, 'VOL')
         plot_graph(lvids, 'LVID')
     # else generate segmentation masks and stats for a test set
     else:
-        dir_mask = os.path.join(args.input, 'mask')
-        dir_img = os.path.join(args.input, 'img')
+        if not os.path.exists(args.output):
+            os.mkdir(args.output)
+        dir_mask = os.path.join(args.datapath, 'mask')
+        dir_img = os.path.join(args.datapath, 'img')
         # define transformations and initialize data loader
         transforms = Compose([Resize(args.size), ToTensor()])
         dataset = BasicDataset(dir_img, dir_mask, transforms)

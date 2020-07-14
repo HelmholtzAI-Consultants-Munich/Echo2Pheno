@@ -323,7 +323,7 @@ def load_model_device(network):
     # get device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if network=='quicknat':
-        model_path = './heart_segmentation/checkpoints/CP_last_e20.pt'
+        model_path = './heart_segmentation/checkpoints/heart-seg-net.pt'
          # load model
         params = {'num_channels':1,
                     'num_class':1,
@@ -341,7 +341,7 @@ def load_model_device(network):
         state_dict = torch.load(os.path.join(model_path), map_location=device)
         net.load_state_dict(state_dict['net_state_dict'])
     else:
-        model_path = './quality_classification/final_models/bagging_final_nets/bagging_net0.pth'
+        model_path = './quality_classification/checkpoints/quality-clas-net.pth'
         net = CardioNet(n_channels=1, n_classes=1)
         net.to(device=device)
         net.load_state_dict(torch.load(model_path, map_location=device))
@@ -470,13 +470,13 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--input', '-i', metavar='INPUT', required=True,
                         help='Specify path of input image - must be in DICOM format')
-    parser.add_argument('--weight', '-m', type=int, default=350,
-                        help='Specify the crop size')
+    parser.add_argument('--mass', '-m', type=int, required=True,
+                        help='Specify the body mass of the mouse')
     parser.add_argument('--output', '-o', default='.', 
                         help='Specify output path to save graphs')
     parser.add_argument('--graphs', '-g', default=True,
                         help='Specify True or False depending on whether you want to save figures')
-    parser.add_argument('--write', '-r', default='all',
+    parser.add_argument('--write', '-w', default='all',
                         help='Specify wheter to save all good features or statistics of features. Give all or stars as input.')
     parser.add_argument('--writefile', '-f', default='output_all.csv',
                         help='Specify in which file to save features')
@@ -484,4 +484,4 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
-    run(args.input, args.output, args.weight, graphs=args.graphs, write=args.write, write_file=args.writefile)
+    run(args.input, args.output, args.mass, graphs=args.graphs, write=args.write, write_file=args.writefile)

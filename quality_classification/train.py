@@ -85,6 +85,8 @@ def train_net(net,
     datetime_dir = datetime.now()
     datetime_dir = datetime_dir.strftime("%d%m%Y%H%M%S")
     tensorboard_dir = datetime_dir + '_' + str(net_run)
+    if not os.path.exists(os.path.join(project_path, 'runs')):
+        os.mkdir(os.path.join(project_path, 'runs'))
     os.mkdir(os.path.join(project_path, 'runs', tensorboard_dir))
     writer = SummaryWriter(logdir=os.path.join(project_path, 'runs', tensorboard_dir), comment="LR_%f_BS_%s" %(lr, batch_size))
     # define optimizer and loss
@@ -150,7 +152,7 @@ def train_net(net,
         if save_cp: #and (epoch+1)%100==0 and epoch!=0:
             torch.save(net.state_dict(), os.path.join(
                     output_path, 'bootstrap_net%s.pth'% (net_run)))
-            logging.info('Model %s saved !'%(net_run))
+            logging.info('Model %s saved !'%(net_run+1))
         writer.close()
         # add losses and evaluation metrics to dicts
         final_loss['train'] = train_loss/n_train
@@ -229,15 +231,14 @@ def eval_net(net, loader, device, n_val, weights_per_class):
         labels = batch['label']
         imgs = imgs.to(device=device, dtype=float32)
         labels = labels.to(device=device)
-
         class_weights = set_class_weights(labels, weights_per_class)
         _, _, _, _, _, label_preds = net(imgs)
-
-        val_loss += BCE_loss(label_preds, labels.float().detach()) * class_weights
+        loss  = BCE_loss(label_preds, labels.float().detach()) * class_weights
+        val_loss += loss.mean().item()
         label_preds = torch.round(label_preds)
         val_accuracy += (label_preds == labels).sum().item()
         val_f1 += f1_score(labels.detach().cpu(), label_preds.detach().cpu())
-    val_loss = val_loss.item()/len(loader)
+    val_loss = val_loss/len(loader)
     val_accuracy = val_accuracy*100/n_val
     val_f1 = val_f1/len(loader)
     return val_loss, val_accuracy, val_f1
@@ -251,6 +252,8 @@ def get_args():
                        help='Provide npy or png to choose data input type')
     parser.add_argument('-a', '--bootstrap', default=False, type=bool, 
                        help='Decided if one model should be trained or multiple')
+    parser.add_argument('-r', '--runs', default=10, type=int, 
+                       help='If you have chosen to run multiple networks define how many')
     parser.add_argument('-e', '--epochs', metavar='E', type=int, default=1,
                         help='Number of epochs', dest='epochs')
     parser.add_argument('-b', '--batch-size', metavar='B', type=int, nargs='?', default=1,
@@ -261,8 +264,6 @@ def get_args():
                         help='Learning rate', dest='lr')
     parser.add_argument('-f', '--load', dest='load', type=str, default=False,
                         help='Load model from a .pth file')
-    parser.add_argument('-s', '--scale', dest='scale', type=float, default=0.5,
-                        help='Downscaling factor of the images')
     parser.add_argument('-v', '--validation', dest='val', type=float, default=10.0,
                         help='Percent of the data that is used as validation (0-100)')
     parser.add_argument('-o', '--output-path', dest='outputpath', default='checkpoints', type=str)
@@ -299,6 +300,7 @@ if __name__ == '__main__':
     # load train and val data with data loader
     train_loader = DataLoader(train, batch_size=args.batchsize, shuffle=True, num_workers=8, pin_memory=True)
     val_loader = DataLoader(val, batch_size=args.batchsize, shuffle=False, num_workers=8, pin_memory=True) 
+
     if bootstrap:
         # train 10 networks with the same configurations to get average of results
         # initialize the network
@@ -318,7 +320,7 @@ if __name__ == '__main__':
         avg_loss_val=0
         avg_accuracy_val=0
         avg_f1_score_val=0
-        for i in range(10):
+        for i in range(args.runs):
             loss, accuracy, f1 = train_net(net=net,
                                             device=device,
                                             train_loader=train_loader,

@@ -2,6 +2,7 @@ import argparse
 import logging
 import csv
 import os
+import sys
 from PIL import Image
 import numpy as np
 from sklearn.metrics import f1_score
@@ -9,8 +10,11 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision.transforms import Normalize, Compose, Resize
 
-from .dataset import EchoDataset, ToTensor, ResizeNpy, ToNumpy
-from .model import CardioNet
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.join(SCRIPT_DIR, PACKAGE_PARENT))
+from quality_classification.dataset import EchoDataset, ToTensor, ResizeNpy, ToNumpy
+from quality_classification.model import CardioNet
 
 
 def save_csv(filename_list, labels_pred, labels_true):
@@ -181,8 +185,6 @@ def predict_dataset(net, device, test_loader, net_run):
     print("False positive rate (FPR): ", fp/n)
     print("False neagtive rate (FNR): ", fn/p)
     print("New f1score: ", f1_score(labels_pred, labels_true))
-    print("predd", labels_pred)
-    print("truee", labels_true)
     if net_run == 100:
         print("Finished testing model")
     else:
@@ -193,22 +195,20 @@ def predict_dataset(net, device, test_loader, net_run):
 def get_args():
     parser = argparse.ArgumentParser(description='Predict label for test images',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--model', '-m', default='checkpoints/net.pth', metavar='FILE',
-                        help="Specify the file in which the model is stored")
-    parser.add_argument('--input', '-i', metavar='INPUT', required=True,
+    parser.add_argument('--datapath', '-d', metavar='INPUT', required=True,
                         help='path of input images')
+    parser.add_argument('--model', '-m', default='checkpoints/bootstrap_net0.pth', metavar='FILE',
+                        help="Specify the file in which the model is stored")
     parser.add_argument('--bootstrap', '-b', default=False,
                         help="Define whether or not prediction should be made from single model or average")
+    parser.add_argument('-r', '--runs', default=10, type=int, 
+                       help='If you have chosen to run multiple networks define how many')
     parser.add_argument('-p', '--im-size', metavar='ImS', type=int, default=256,
                         help='Image width and height', dest='imsize')
     parser.add_argument('--datatype', '-t', default='png',
                        help='Provide npy or png to choose data input type')
     parser.add_argument('--output', '-o', default=False, 
                         help='Specify if a csv list of predictions should be created')
-    parser.add_argument('--scale', '-s', type=float,
-                        help="Scale factor for the input images",
-                        default=0.5)
-
     return parser.parse_args()
 
 
@@ -219,7 +219,7 @@ if __name__ == "__main__":
         transforms = Compose([Resize((args.imsize, args.imsize)), ToNumpy(), ToTensor(), Normalize([0.5], [0.5])])   
     elif args.datatype == 'npy':
         transforms = Compose([ResizeNpy(args.imsize), ToTensor(), Normalize([0.5], [0.5])])  
-    dataset = EchoDataset(args.input, transforms, args.datatype)                         # create data set class
+    dataset = EchoDataset(args.datapath, transforms, args.datatype)                         # create data set class
     n_test = len(dataset)
     print("Going to test model on ", n_test, " images")
     test_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, pin_memory=True)
