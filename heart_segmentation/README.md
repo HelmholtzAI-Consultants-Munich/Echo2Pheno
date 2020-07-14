@@ -54,7 +54,26 @@ python run.py -d ./datasets/heartSegData/train -e 20 -b 4 -l 0.0001
 
 ## Model
 
-The model used for training was QuickNAT. The code is provided [here](https://github.com/ai-med/quickNAT_pytorch).
+The model used for training was QuickNAT. The code is provided [here](https://github.com/ai-med/quickNAT_pytorch) and is based on [QuickNAT: A fully convolutional network for quick and accurate segmentation of neuroanatomy] (https://www.sciencedirect.com/science/article/abs/pii/S1053811918321232) and [Bayesian QuickNAT: Model uncertainty in deep whole-brain segmentation for structure-wise quality control] (https://www.sciencedirect.com/science/article/abs/pii/S1053811919302319). The only change made to the model was to reduce the number of outputs classes to one, for a binary segmentation problem.
 
 ## Testing
 
+To test the performance of the trained model the ```test.py```. This can be used either to test a single image or for an entire test set. If a single image is given the segmentation mask is then used to calculate the Left Ventricle (LV) Inner Diameters of the heart and the LV Volume for every column in the image. These are then plotted over time and shown. Note that for the time axis a pixel resolution of 0.0008334 sec is assumed. If an entire dataset is given the average DICE score, MSE and loss are calculated for the entire test set and the first ten images, predictions and ground truth masks are saved.
+
+The following arguments should/can be given:
+
+**Required arguments**
+
+* -d: As explained above this argument should either be set to the path of an image in png format or the path to a test set directory.
+
+**Optional arguments**
+
+* -m: The path to the model to be loaded
+* -s: The size to which the images will be reshaped to before inputted to the network
+* -o: The directory into which to save the first 10 images and results if a test dataset has been given as input. If a direcotry doesn't exist it is automatically created
+
+**Example run**
+
+```
+python test.py -d ./datasets/heartSegData/test/test_img.png
+```
