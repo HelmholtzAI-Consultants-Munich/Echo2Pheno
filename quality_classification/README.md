@@ -10,6 +10,8 @@ Recording | Good-Start | Good-End | Bad-Start | Bad-End
 TS_short_1 | 3.4 | 3.9 | 2 | 2.6
 Ts-short_2 | 2.1 | 2.9 | 0 | 1.3
 TS_short_3 | 1.2 | 1.8 | 0 | 0.9
+TS_short_4 | 0.9 3.0 | 1.5 4.3 | 1.6 | 3.1
+TS_short_5 | 1.6 | 3.7 | 0.4 | 1.6
 
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/csv_example.png | width=10)
 
