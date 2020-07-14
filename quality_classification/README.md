@@ -5,6 +5,12 @@ This repo provides all necessary code for training and testing a network on echo
 ## Data
 The data for training the model need to be squared images of any size. They are reiszed as a pre-processing step in ```train.py```. In order to create such images for training from raw dicom files use the script ```create_dataset.py```. This will create squared images including about three heart beats in each image. When running ```create_dataset.py``` windows of the very long echocardiography image are created and saved in both png and npy format. To create the dataset a csv file also needs to be provided where the start and end times (in seconds) of good and bad acquisition quality regions are given. An example can how such a file should look can be seen here:
 
+Recording | Good-Start | Good-End | Bad-Start | Bad-End
+-------| ------------- | ------------- | ------------- | ------------- |
+TS_short_1 | 3.4 | 3.9 | 2 | 2.6
+Ts-short_2 | 2.1 | 2.9 | 0 | 1.3
+TS_short_3 | 1.2 | 1.8 | 0 | 0.9
+
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/csv_example.png | width=10)
 
 An example of an image created for training can be seen here:
