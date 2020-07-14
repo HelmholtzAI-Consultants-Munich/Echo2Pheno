@@ -27,6 +27,8 @@ Both models for quality_classification and heart_segmentation can be trained fro
 
 ## Running for one echocardiogram
 
+For running the framework for a single echocardiogram the ```end2end_framework.py``` script can be used. The following arguments should/can be given:
+
 **Required arguments**
 
 * -i: The path to the dicom file you wish to extract features from
