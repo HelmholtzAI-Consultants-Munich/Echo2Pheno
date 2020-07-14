@@ -3,7 +3,7 @@
 This repo provides all necessary code for training and testing a network on echocardiography data to classify the quality of acquisition into good and bad regions.
 
 ## Data
-The data for training the model need to be squared images of any size. They are reiszed as a pre-processing step in ```train.py```. In order to create such images for training from a raw dicom file use the script ```create_dataset.py```. This will create squared images including about 3 heart beats in each image. When running ```create_dataset.py``` windows of the very long echocardiography image are created and saved in both png and npy format. An example of a training image can be seen here:
+The data for training the model need to be squared images of any size. They are reiszed as a pre-processing step in ```train.py```. In order to create such images for training from a raw dicom file use the script ```create_dataset.py```. This will create squared images including about three heart beats in each image. When running ```create_dataset.py``` windows of the very long echocardiography image are created and saved in both png and npy format. An example of a training image can be seen here:
 
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/train-acquisition-example.png)
 
