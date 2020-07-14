@@ -9,7 +9,7 @@ The data for training the model need to be squared images of any size. They are 
 
 An example of an image created for training can be seen here:
 
-![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/train-acquisition-example.png)
+![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/train-acquisition-example.png =400x170)
 
 The data should be organized as folllows:
 ```
