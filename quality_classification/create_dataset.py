@@ -29,7 +29,6 @@ def make_timeseries(filepath):
     timeframe = np.concatenate((timeframe, img_data[-1, :, 302:]), axis=1)
     return ds, timeframe
 
-
 def get_good_bad(good_start, good_end, bad_start, bad_end, timeseries, tot_time):
     
     good_regions = []
@@ -40,7 +39,6 @@ def get_good_bad(good_start, good_end, bad_start, bad_end, timeseries, tot_time)
     good_stop_split = good_end.split('  ')
     bad_start_split = bad_start.split(' ')
     bad_stop_split = bad_end.split(' ')
-
 
     for idx, good_start in enumerate(good_start_split):
         # translate to pixel values
@@ -89,7 +87,7 @@ def find_custom_peaks(timeseries5):
         marker[0:200] = 1
     
     marker[-20:-1,:] = 1
-
+    
     # blur image and make 3 channels
     color_timeseries = cv2.cvtColor(timeseries5.astype('uint8'), cv2.COLOR_GRAY2RGB)
     blur = cv2.GaussianBlur(color_timeseries,(5,5),0)
@@ -173,15 +171,13 @@ def make_windows(good_imgs, bad_imgs, output_dir, filename):
                 pil_img.convert('L')
                 pil_img.save(os.path.join(out_bad_png, out_file_name))
 
-
-
 if __name__ == '__main__':
 
-    dicom_dir = r'/Users/christina.bukas/Documents/AI_projects/datasets/cardioMice/TimeSeries/dicoms' # add here the  input directory e.g. /home/data/raw 
-    output_dir = r'/Users/christina.bukas/Documents/AI_projects/datasets/testing' # add here the destination dir e.g. '/home/data/train'
-    annotation_filename = os.path.join('TimeSeries.csv')
-    file_list = os.listdir(dicom_dir)#add here the xls file of good and bad regions annotations 
-
+    dicom_dir = # add the  input directory here, e.g. /home/data/raw 
+    output_dir = # add the destination dir here, e.g. '/home/data/train'
+    annotation_filename = os.path.join('TimeSeries.csv'). #add the csv file of good and bad regions annotations here
+    
+    file_list = os.listdir(dicom_dir)
     df = pd.read_csv(annotation_filename)
     df.set_index("Recording", inplace=True)
     
@@ -202,8 +198,3 @@ if __name__ == '__main__':
         good_imgs, bad_imgs = get_good_bad(good_start, good_end, bad_start, bad_end, timeframe, tot_time)
         # create and save windows
         make_windows(good_imgs, bad_imgs, output_dir, mouse_id)
-
-        
-
-
-        
