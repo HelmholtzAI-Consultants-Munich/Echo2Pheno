@@ -417,7 +417,7 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
     '''-----------GRAPHS PART-----------'''
     if graphs:
         if not os.path.exists(output_path):
-            os.mkdir(output_path)
+            os.makedirs(output_path)
         graphs = Graph(ec.time_res, labels, sigs, BEtimes)
         graphs.make_custom_heatmap(ec.image)
         graphs.make_graph(np.arange(len(ec.vols)), ec.vols, ec.lvids, 'Heart Values Estimation', os.path.join(output_path, 'output_vol.png'))

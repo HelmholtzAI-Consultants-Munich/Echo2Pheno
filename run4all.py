@@ -7,7 +7,7 @@ def run4all(input_dir, output_dir, weight, graphs=True, write='stats', write_fil
     for file in list_files:
         print('Starting for file: ', file)
         file_name = file.split('.')[0]
-        run(os.path.join(input_dir, file), os.path.join(output_dir, file_name), weight, graphs=graphs, write=write, write_file=write_file)
+        run(os.path.join(input_dir, file), os.path.join(output_dir, file_name), weight, graphs=graphs, write=write, write_file=os.path.join(output_dir, write_file))
         print('Done for file: ', file)
     print('Done for directory: ', input_dir.split('/')[-1])
 
@@ -36,4 +36,4 @@ if __name__ == '__main__':
         write_file = 'output_all.csv'
     else:
         write_file = None
-    run4all(args.input, args.output, args.mass, graphs=False, write=args.write, write_file=write_file)
+    run4all(args.input, args.output, args.mass, graphs=args.graphs, write=args.write, write_file=write_file)
