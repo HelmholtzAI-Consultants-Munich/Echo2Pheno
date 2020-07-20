@@ -23,32 +23,32 @@ class CardioNet(nn.Module):
     The network has 5 convolutional blocks (Convolution->ReLU->BatchNorm->MaxPooling) followed by a fully conneted layer and sigmoid function.
     Parameters
     ----------
-    n_channels: int
-        The number of channels in the image, e.g. for RGB images n_channels = 3, for grayscale images n_channels = 1
-    n_class: int, default=1
-        The number of classes in which the input image can be classified
+        n_channels: int
+            The number of channels in the image, e.g. for RGB images n_channels = 3, for grayscale images n_channels = 1
+        n_class: int, default=1
+            The number of classes in which the input image can be classified
     Attributes
     ----------
-    n_channels: int
-        The number of channels in the image, e.g. for RGB images n_channels = 3, for grayscale images n_channels = 1
-    n_class: int, default=1
-        The number of classes in which the input image can be classified
-    conv_block1: ConvBlock
-        The first convolution block of the network
-    conv_block2: ConvBlock
-        The second convolution block of the network
-    conv_block3: ConvBlock
-        The third convolution block of the network
-    conv_block4: ConvBlock
-        The fourth convolution block of the network
-    conv_block5: ConvBlock
-        The fifth convolution block of the network
-    flatten: Flatten
-        A layer which outputs a flattened tensor
-    linear: nn.Linear
-        A linear layer
-    sig: nn.Sigmoid
-        A signoid layer
+        n_channels: int
+            The number of channels in the image, e.g. for RGB images n_channels = 3, for grayscale images n_channels = 1
+        n_class: int, default=1
+            The number of classes in which the input image can be classified
+        conv_block1: ConvBlock
+            The first convolution block of the network
+        conv_block2: ConvBlock
+            The second convolution block of the network
+        conv_block3: ConvBlock
+            The third convolution block of the network
+        conv_block4: ConvBlock
+            The fourth convolution block of the network
+        conv_block5: ConvBlock
+            The fifth convolution block of the network
+        flatten: Flatten
+            A layer which outputs a flattened tensor
+        linear: nn.Linear
+            A linear layer
+        sig: nn.Sigmoid
+            A signoid layer
     '''
     def __init__(self, n_channels, n_classes=1):
         super(CardioNet, self).__init__()
@@ -82,14 +82,14 @@ class ConvBlock(nn.Module):
     The network has 5 convolutional blocks (Convolution->ReLU->BatchNorm->MaxPooling) followed by a fully conneted layer and sigmoid function.
     Parameters
     ----------
-    in_channels: int
-        The number of input channels of the block
-    out_channels: int, default=1
-        The number of output channels of the block
+        in_channels: int
+            The number of input channels of the block
+        out_channels: int, default=1
+            The number of output channels of the block
     Attributes
     ----------
-    double_conv: nn.Sequential
-        A block consisting of a convolutional layer, followed by a ReLU, folllowed by Batch Normalization, followed by a final Max Pooling layer
+        double_conv: nn.Sequential
+            A block consisting of a convolutional layer, followed by a ReLU, folllowed by Batch Normalization, followed by a final Max Pooling layer
     '''
     def __init__(self, in_channels, out_channels):
         super(ConvBlock, self).__init__()

@@ -35,30 +35,30 @@ class EchoDataset(Dataset):
     This class is used to load the data of the echo dataset
     Parameters
     ----------
-    root_dir: string
-        The root directory of the dataset. The dataset should be organized as follows:
-        --root_dir
-            --pngs
-                --good
-                --bad
-            OR/AND
-            --npys
-                --good
-                --bad
-    transforn: torchvision.transforms.Compose
-        The transformations to be applied to each sample after it is loaded
-    data_type: string, one of two values: 'npy', 'png'
-        The data can be loaded either as from a png image or from an numpy array but this needs to be specified here
+        root_dir: string
+            The root directory of the dataset. The dataset should be organized as follows:
+            --root_dir
+                --pngs
+                    --good
+                    --bad
+                OR/AND
+                --npys
+                    --good
+                    --bad
+        transforn: torchvision.transforms.Compose
+            The transformations to be applied to each sample after it is loaded
+        data_type: string, one of two values: 'npy', 'png'
+            The data can be loaded either as from a png image or from an numpy array but this needs to be specified here
     Attributes
     ----------
-    root_dir: string
-        The root directory of the dataset. 
-    img_list: list of tuple
-        A list including tuples (filename, label) of all samples in the dataset
-    transforn: torchvision.transforms.Compose
-        The transformations to be applied to each sample after it is loaded
-    data_type: string, one of two values: 'npy', 'png'
-        The data can be loaded either as from a png image or from an numpy array but this needs to be specified here
+        root_dir: string
+            The root directory of the dataset. 
+        img_list: list of tuple
+            A list including tuples (filename, label) of all samples in the dataset
+        transforn: torchvision.transforms.Compose
+            The transformations to be applied to each sample after it is loaded
+        data_type: string, one of two values: 'npy', 'png'
+            The data can be loaded either as from a png image or from an numpy array but this needs to be specified here
     '''
     def __init__(self, root_dir, transform=None, data_type='npy'):
         self.data_type = data_type
@@ -86,12 +86,12 @@ class EchoDataset(Dataset):
         This class aims to support indexing so that dataset[i] gives you the ith image/sample
         Parameters
         ----------
-        idx: int
-            The ith sample to be loaded
+            idx: int
+                The ith sample to be loaded
         Returns
         -------
-        ret: dict
-            Sample of our dataset will be a dict {'image': image, 'label': label, 'filename': filename of sample}
+            ret: dict
+                Sample of our dataset will be a dict {'image': image, 'label': label, 'filename': filename of sample}
         '''
         img_tuple = self.img_list[idx]
         if self.data_type == 'png':

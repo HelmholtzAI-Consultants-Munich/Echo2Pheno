@@ -17,22 +17,22 @@ class BasicDataset(Dataset):
     A simple dataloader
     Parameters
     ----------
-    imgs_dir: string
-        Path to directory of images
-    masks_dir: string
-        Path to direfctory of masks
-    transforn: torchvision.transforms.Compose
-        The transformations to be applied to each sample after it is loaded
+        imgs_dir: string
+            Path to directory of images
+        masks_dir: string
+            Path to direfctory of masks
+        transforn: torchvision.transforms.Compose
+            The transformations to be applied to each sample after it is loaded
     Attributes
     ----------
-     imgs_dir: string
-        Path to directory of images
-    masks_dir: string
-        Path to direfctory of masks
-    ids: list of strings
-        A list of all filenames in the data set 
-    transforn: torchvision.transforms.Compose
-        The transformations to be applied to each sample after it is loaded
+        imgs_dir: string
+            Path to directory of images
+        masks_dir: string
+            Path to direfctory of masks
+        ids: list of strings
+            A list of all filenames in the data set 
+        transforn: torchvision.transforms.Compose
+            The transformations to be applied to each sample after it is loaded
     '''
     def __init__(self, imgs_dir, masks_dir, transform):
         self.imgs_dir = imgs_dir
@@ -50,12 +50,12 @@ class BasicDataset(Dataset):
         This function aims to support indexing so that dataset[i] gives you the ith image/sample
         Parameters
         ----------
-        i: int
-            The ith sample to be loaded
+            i: int
+                The ith sample to be loaded
         Returns
         -------
-        ret: dict
-            Sample of our dataset will be a dict {'image': image, 'mask': mask}
+            ret: dict
+                Sample of our dataset will be a dict {'image': image, 'mask': mask}
         '''
         idx = self.ids[i]
         mask_file = join(self.masks_dir, idx)

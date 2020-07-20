@@ -64,12 +64,12 @@ def train_net(net,
             Defines whether or not to save the model at certain intervals
     Returns
     -------
-    final_loss: dict
-        The final loss of the trained model on the train and validation set in final_loss['train'] and final_loss['val']
-    final_accuracy: dict
-        The final accuracy of the trained model on the train and validation set in final_loss['train'] and final_loss['val']
-    final_f1: dict
-        The final f1 score of the trained model on the train and validation set in final_loss['train'] and final_loss['val']
+        final_loss: dict
+            The final loss of the trained model on the train and validation set in final_loss['train'] and final_loss['val']
+        final_accuracy: dict
+            The final accuracy of the trained model on the train and validation set in final_loss['train'] and final_loss['val']
+        final_f1: dict
+            The final f1 score of the trained model on the train and validation set in final_loss['train'] and final_loss['val']
     """
     logging.info("""Starting training:
         Epochs:          %s
@@ -184,8 +184,8 @@ def set_class_weights(label, weights_per_class):
             Sets weighting of different classes on loss function for imbalanced classes
     Returns
     -------
-    class_weights: torch.Tensor
-        Same size as labels, this includes a weight for each sample in the batch depending on if the sample is 0 or 1 and the weights_per_class
+        class_weights: torch.Tensor
+            Same size as labels, this includes a weight for each sample in the batch depending on if the sample is 0 or 1 and the weights_per_class
     """
     class_weights = np.zeros(label.size()[0])
     for i in range(label.size()[0]):

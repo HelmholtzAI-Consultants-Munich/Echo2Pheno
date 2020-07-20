@@ -29,7 +29,6 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
-
     if args.write=='stats':
         write_file = 'output_stats.csv'
     elif args.write=='all':

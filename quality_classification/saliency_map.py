@@ -1,5 +1,6 @@
 from model import CardioNet
 from dataset import EchoDataset, ToTensor, ResizeNpy, ToNumpy
+import argparse
 
 import numpy as np
 import os
@@ -11,10 +12,21 @@ from torchvision.transforms import Normalize, Compose, Resize
 from torch.utils.data import DataLoader
 
 
-def get_saliency_map(network, dataset, input_path):
+def get_saliency_map(network, dataset):
+    """
+    This function creates saliency maps for the 10 first images of the test set show the image and saliency map and saves the figures.
+    By plotting the saliency maps we see where in the image the model focuses for making the classification decision.
+    Parameters
+    ----------
+        network: model.CardioNet
+            The trained network
+        dataset: torch.utils.data.dataloader.DataLoader
+            The test data
+    """
     network.eval()
     network = network.double()
     for i,sample in enumerate(dataset):
+        # only perform for the first 10 images in the test set
         if i == 10:
             break
         image = sample['image']
@@ -27,12 +39,9 @@ def get_saliency_map(network, dataset, input_path):
         saliency = image.grad.data.abs() #saliency, _ = torch.max(image.grad.data.abs(), dim=1)
         # load original image
         title = 'File ' + filename[0] + ' label: ' + str(label.item()) + ' prediction: ' + str(round(pred.item()))
-        if label.item() == 1:
-            orig_img = os.path.join(input_path, 'good', filename[0])
-        else:
-            orig_img = os.path.join(input_path, 'bad', filename[0])
-        orig_img = Image.open(orig_img)
-        orig_img = np.array(orig_img)
+        # convert torch image to numpy
+        image = torch.squeeze(image)
+        image = image.detach().cpu().numpy()
         # plot image and saliency map
         fig=plt.figure()
         columns = 2
@@ -40,22 +49,31 @@ def get_saliency_map(network, dataset, input_path):
         plt.title(title)
         plt.axis('off')
         fig.add_subplot(rows, columns, 1)
-        plt.imshow(orig_img, cmap='gray')
+        plt.imshow(image, cmap='gray')
         plt.axis('off')
         fig.add_subplot(rows, columns, 2)
         plt.imshow(saliency[0][0], cmap='hot')
         plt.axis('off')
+        # show and save figure
         plt.savefig(str(i)+'.png')
         plt.show()
     
+def get_args():
+    parser = argparse.ArgumentParser(description='Get saliency maps for test sets',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('--model', '-m', default='checkpoints/quality-clas-net.pth', metavar='FILE',
+                        help="Specify the path of the trained model")
+    parser.add_argument('--datapath', '-d', required=True,
+                        help='Specify the path of the test set')
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    model_path = 'final_models/bagging_final_nets/bagging_net0.pth'
-    input_path = '/Users/christina.bukas/Documents/AI_projects/datasets/cardioMice/TimeSeries/newWindows'
-
+    args = get_args()
+    model_path = args.model
+    input_path = args.datapath #'/Users/christina.bukas/Documents/AI_projects/datasets/cardioMice/TimeSeries/newWindows'
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     net = CardioNet(n_channels=1, n_classes=1)
-    print("Loading model ", model_path)
+    #print("Loading model ", model_path)
     net.to(device=device)
     net.load_state_dict(torch.load(model_path, map_location=device))
     print("Model loaded !")
