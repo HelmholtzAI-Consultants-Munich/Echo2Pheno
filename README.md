@@ -29,7 +29,7 @@ Both models for quality_classification and heart_segmentation can be trained fro
 ```
 --quality_classification
   --checkpoints
-    --quality-clas-net.pt
+    --quality-clas-net.pth
 --heart_segmentation
   --checkpoints
     --heart-seg-net.pt
