@@ -244,6 +244,23 @@ def eval_net(net, loader, device, n_val, weights_per_class):
     return val_loss, val_accuracy, val_f1
 
 def get_args():
+    '''
+    Required arguments
+    ------------------
+        -d: The path to the training dataset
+    Optional arguments
+    ------------------
+        -t: The datatype of the training set. Can be either 'npy' or 'png'. Default is png
+        -a: Either True of False defining whether bagging should be performed. For more information see readme. Default is False.
+        -r: Number of runs if bagging is defined. Default is 10
+        -e: The number of epochs to train for. Default is 1
+        -b: The batch size during training and validation. Default is 1
+        -p: The size to which images need to be resized during load. Default is 256
+        -l: The learning rate during training. Default is 0.001
+        -f: The path to the pretrained model to load
+        -v: The training-validation split. Default is 20, meaning 20% validation, 80% training
+        -o: The path to the checkpoint dir. Default is ./checkpoints
+    '''
     parser = argparse.ArgumentParser(description='Train classifier to detect good and bad acquisitions',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-d', '--datapath', required=True, type=str, 

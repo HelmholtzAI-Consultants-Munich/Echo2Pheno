@@ -31,17 +31,30 @@ def run4all(input_dir, output_dir, weight, graphs=True, write='stats', write_fil
 
 # see the readme for further explanation of the arguments
 def get_args():
+    '''
+    Required arguments
+    ------------------
+        -i: The path to the directory of files you wish to extract features from
+        -m: The body mass in grams of the current mice you wish to extract features from
+    Optional arguments
+    ------------------
+        -o: The name of the root directory to save graphs, images and csv to. Default is the current working directory. Note that for each
+            file a subdirectory will be created if specified.
+        -g: if True output graphs and images will be created and saved, if False they will not. Default is True
+        -w: If 'all' all features are extracted and saved to a csv, if 'stats' only statistics from echocardiogram are extracted and saved 
+            (one row per image). Default value is 'all'
+    '''
     parser = argparse.ArgumentParser(description='Predict heart volume for test image',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--input', '-i', metavar='INPUT', required=True,
                         help='Specify path directory of input files')
-    parser.add_argument('--mass', '-m', type=int, default=30,
+    parser.add_argument('--mass', '-m', type=int, required=True,
                         help='Specify the crop size')
     parser.add_argument('--output', '-o', default='.', 
                         help='Specify output path to save results')
     parser.add_argument('--graphs', '-g', default=False,
                         help='specify if you want to save graphs as output or not')       
-    parser.add_argument('--write', '-w', default=False,
+    parser.add_argument('--write', '-w', default='all',
                         help='Specify if you want to write out all outputs or only stats')
     return parser.parse_args()
 

@@ -193,6 +193,20 @@ def predict_dataset(net, device, test_loader, net_run):
 
 
 def get_args():
+    '''
+    Required arguments
+    ------------------
+        -d: The path to the training dataset
+    Optional arguments
+    ------------------
+
+        -m: The path to the model you wish to test
+        -b: Either True of False defining whether bagging should be performed. For more information see readme. Default is False.
+        -r: Number of runs if bagging is defined. Default is 10
+        -p: The size to which images need to be resized during load. Default is 256
+        -t: The datatype of the training set. Can be either 'npy' or 'png'. Default is png
+        -o: Either True or False, if True a csv file is created and results for each classification are written there. Default is False.
+    '''
     parser = argparse.ArgumentParser(description='Predict label for test images',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--datapath', '-d', metavar='INPUT', required=True,

@@ -212,7 +212,17 @@ def predict_all(net, device, test_loader, save_dir):
 
 
 def get_args():
-    parser = argparse.ArgumentParser(description='Predict label for test images',
+    '''
+    Required arguments
+    ------------------
+        -d: The path to the test dataset, or to a single image
+    Optional arguments
+    ------------------
+        -s: The size to which images need to be resized during load. Default is 256
+        -m: The path to the model you wish to test
+        -o: The path to save the first ten images when testing the entire test set
+    '''
+    parser = argparse.ArgumentParser(description='Predict segmentation masks for test images',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--model', '-m', default='checkpoints/heart-seg-net.pt', metavar='FILE',
                         help="Specify the file in which the model is stored")

@@ -264,7 +264,14 @@ def make_windows(good_imgs, bad_imgs, output_dir, filename):
 
 
 def get_args():
-    parser = argparse.ArgumentParser(description='Train classifier to detect good and bad acquisitions',
+    '''
+    Required arguments
+    ------------------
+        -i: The path to the dataset, i.e. dicom files
+        -o: The path in which we wish to save the created dataset, i.e. train data set
+        -a: The path to the annotations file. Must be a csv file. For more details see readme
+    '''
+    parser = argparse.ArgumentParser(description='Create a dataset for training a acquisition quality classification network',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--datapath', required=True, type=str, 
                        help='Provide path to dicom files')

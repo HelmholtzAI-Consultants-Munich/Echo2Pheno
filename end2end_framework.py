@@ -465,9 +465,22 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
                 writer.writerow([filename, good_lvid_d[i], times_lvid_d[i], good_lvid_s[i], times_lvid_s[i], good_heartrates[i], times_hr[i]])
                 i += 1
 
-# see the readme for further explanation of the arguments
 def get_args():
-    parser = argparse.ArgumentParser(description='Predict heart volume for test image',
+    '''
+    Required arguments
+    ------------------
+        -i: The path to the dicom file you wish to extract features from
+        -m: The body mass in grams of the current mouse you wish to extract features from
+    Optional arguments
+    ------------------
+        -o: The name of the directory to save graphs, images and csv to. Default is the current working directory.
+        -g: if True output graphs and images will be created and saved, if False they will not. Default is True
+        -w: If 'all' all features are extracted and saved to a csv, if 'stats' only statistics from echocardiogram are extracted and saved 
+            (one row per image). Default value is 'all'
+        -f: The name of the csv file to write features to. The default value is 'output_all.csv'. If the file already exists then the new
+            features will be appended as new rows to the file, but if the file doesn't already exist then it is automatically created.
+    '''
+    parser = argparse.ArgumentParser(description='Run the end 2 end framework to extract useful heart features from an echocardiogram',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--input', '-i', metavar='INPUT', required=True,
                         help='Specify path of input image - must be in DICOM format')

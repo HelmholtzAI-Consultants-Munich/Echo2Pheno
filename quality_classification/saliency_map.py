@@ -59,6 +59,14 @@ def get_saliency_map(network, dataset):
         plt.show()
     
 def get_args():
+    '''
+    Required arguments
+    ------------------
+        -d: The path to the test dataset
+    Optional arguments
+    ------------------
+        -m: The path to the model you wish to test. Default is ./checkpoints/quality-clas-net.pth
+    '''
     parser = argparse.ArgumentParser(description='Get saliency maps for test sets',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--model', '-m', default='checkpoints/quality-clas-net.pth', metavar='FILE',
