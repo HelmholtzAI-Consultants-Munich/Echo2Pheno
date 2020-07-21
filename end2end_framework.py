@@ -355,7 +355,7 @@ def load_model_device(network):
 
 def run(input_path, output_path, weight, graphs=True, write=None, write_file=None):
     """
-    This function is where the end2end dramework is run.
+    This function is where the end2end framework is run.
     Parameters
     ----------
         input_path: string
@@ -465,6 +465,7 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
                 writer.writerow([filename, good_lvid_d[i], times_lvid_d[i], good_lvid_s[i], times_lvid_s[i], good_heartrates[i], times_hr[i]])
                 i += 1
 
+# see the readme for further explanation of the arguments
 def get_args():
     parser = argparse.ArgumentParser(description='Predict heart volume for test image',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
