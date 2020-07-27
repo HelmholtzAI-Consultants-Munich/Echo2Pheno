@@ -1,0 +1,9 @@
+.Rhistory
+.DS_Store
+__pycache__/
+heart_segmentation/.DS_Store
+heart_segmentation/__pycache__/
+heart_segmentation/checkpoints/
+quality_classification/.DS_Store
+quality_classification/__pycache__/
+quality_classification/checkpoints/
