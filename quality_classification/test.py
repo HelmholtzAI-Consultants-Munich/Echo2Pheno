@@ -93,7 +93,7 @@ def predict_single(net, device, img_path, size):
     orig_size = img.size
     transforms = Compose([ResizeNpy(size), ToTensor(), Normalize([0.5], [0.5])]) 
     img = transforms(img)
-    img.to(device=device, dtype=torch.float32)
+    img = img.to(device=device, dtype=torch.float32)
     img = torch.unsqueeze(img, dim=0) 
     with torch.no_grad():
         _, _, _, _, _, label_pred = net(img.double())
