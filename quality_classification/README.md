@@ -46,9 +46,9 @@ To train a quality acquisition classification network run ```train.py```. The fo
 * -b: Define your batch size here. Default is 1.
 * -p: Define the size of images the network takes as input. Default is 256, so when images are loaded they are resized to this value.
 * -l: Define your learning rate here. Default is 0.001.
-* -f: If you wish to start training with a pre-trained network define here the model you wish to load
+* -f: If you wish to start training with a pre-trained network define here the model you wish to load.
 * -v: With this argument you can define the training-validation split. The default value is 10, meaning that 10% of the data will be set aside for validation
-* -o: Define the ouptut path, i.e. where you model(s) will be saved. The default is the './checkpoints' directory which will be automatically created if it does not exist
+* -o: Define the ouptut path, i.e. where you model(s) will be saved. The models are saved in .pth format on the last epoch of training. The default is the './checkpoints' directory which will be automatically created if it does not exist.
 
 **Example run**
 ```
@@ -79,7 +79,7 @@ python test.py -d ./datasets/cardioMice/test
 ```
 
 ## Results
-During training 10 networks were trained for 15 epochs with a batch size of four and a learning rate of 0.0001 for images of size 256x256. For testing all network were used; their sigmoid outputs were summed and the final average sigmoid was rounded to either zero or one with a threshold of 0.5. The performance of this averaged prediction on the test set is given here:
+During training 10 networks were trained for 15 epochs with a batch size of four and a learning rate of 0.0001 for images of size 256x256. The trained network can be downloaded [here] (https://zenodo.org/record/3941857#.XwxgUC2w3s0). For testing all 10 networks were used; their sigmoid outputs were summed and the final average sigmoid was rounded to either zero or one with a threshold of 0.5. The performance of this averaged prediction on the test set is given here:
 
 Accuracy | FPR | FNR | F1 Score 
 -------| ------------- | ------------- | ------------- 
