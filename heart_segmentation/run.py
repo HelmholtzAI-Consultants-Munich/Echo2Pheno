@@ -95,7 +95,7 @@ if __name__=='__main__':
     # train the network
     try:
         logging.info('Going to train network')
-        trainer.run_train()
+        trainer.train()
     except KeyboardInterrupt:
         torch.save(net.state_dict(), os.path.join(checkpoint_path, 'INTERRUPTED.pth'))
         logging.info('Saved interrupt')

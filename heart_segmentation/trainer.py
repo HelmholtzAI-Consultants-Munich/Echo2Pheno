@@ -26,7 +26,7 @@ class Trainer(object):
         val_percent: float
             The percentage of data to keep for validation, e.g. 0.2 then 20% of the data is kept for validation and 80% for training
         augmentations: bool
-            True or False depending on if you want to use data augmentation
+            True or False depending on if you want to use data augmentation. If True random affine augmentation is applied.
         img_size: int
             The value to which we need to resize images before inputting them to the network
         output_path: string
@@ -113,7 +113,7 @@ class Trainer(object):
         self.save_cp = save_cp
         self.output_path = output_path
 
-    def create_loaders(self):
+    def _create_loaders(self):
         """
         This function is used to create a training and validation data loader
         """
@@ -135,14 +135,15 @@ class Trainer(object):
         self.val_loader = DataLoader(val, batch_size=self.batch_size, shuffle=False, num_workers=0, pin_memory=True, drop_last=True)
         
 
-    def run_train(self):
+    def train(self):
         """
         This function is where the actual setup and training of the network takes place. It calls other functions of the class for 
-        evaluation, training for one epoch etc.
-
+        evaluation, training for one epoch etc. and evaluates the performance according to the Mean Square Error (MSE) and Dice score.
+        The best MSE and dice score on the validation set are kept track of and a model is saved if these metrics are higher in a 
+        certain epoch than for any of the previous epochs of training.
         """
         # create data loaders for training and validation sets
-        self.create_loaders()
+        self._create_loaders()
 
         logging.info("""Starting training:
             Epochs:          %s
@@ -161,7 +162,7 @@ class Trainer(object):
             
             self.net.train()
             # train network for an entire epoch
-            train_loss, train_mse, train_dice = self.train(epoch)
+            train_loss, train_mse, train_dice = self._train_epoch(epoch)
             # write results
             self.writer.add_scalar('Epoch_loss/train_loss', train_loss, epoch)
             logging.info('Training MSE: {}, DICE: {}'.format(train_mse, train_dice))
@@ -174,12 +175,12 @@ class Trainer(object):
             self.writer.add_scalar('Epoch_loss/validation_loss', val_loss, epoch)
             logging.info('Validation MSE: {}, DICE: {}'.format(val_mse, val_dice))    
             logging.info('Validation loss: {}'.format(val_loss))
-            # keep track of the best ssim and psnr on validation set - they must both be better to be stored
+            # keep track of the best dice score and mse on validation set - they must both be better for the model to be saved 
             if val_dice > best_dice and val_mse < best_mse:
                 best_dice = val_dice
                 best_mse = val_mse
 
-            # save model in checkpoints if validation ssim and psnr are the best so far or else save model at least once at the end
+            # save model in checkpoints if validation dice score and mse are the best so far or else save model at least once at the end
             if self.save_cp and ((val_dice == best_dice and val_mse == best_mse) or epoch==self.epochs-1):
                 if val_dice == best_dice and val_mse == best_mse:
                     logging.info('Best model so far. Going to save.')
@@ -206,7 +207,7 @@ class Trainer(object):
         self.writer.close()
 
 
-    def train(self,epoch):
+    def _train_epoch(self,epoch):
         """
         This function trains the network for one epoch
         Parameters
@@ -229,7 +230,7 @@ class Trainer(object):
             
         for batch in self.train_loader:
 
-            torch.cuda.empty_cache()
+            #torch.cuda.empty_cache() # uncomment if OOM error occurs, could help
             # load image and cast to device
             img = batch['image']
             mask = batch['mask']
@@ -246,7 +247,6 @@ class Trainer(object):
             self.writer.add_scalar('Loss/bce', loss.item(), self.global_step)
             train_loss += loss.item()
             # backprobagate and update weights
-            self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
 

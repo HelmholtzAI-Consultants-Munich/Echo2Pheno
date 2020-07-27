@@ -14,7 +14,7 @@ class ResizeNpy(object):
 
 class BasicDataset(Dataset):
     '''
-    A simple dataloader
+    A simple dataloader. Returns data in the form {'image': img, 'mask': mask}.
     Parameters
     ----------
         imgs_dir: string
@@ -31,7 +31,7 @@ class BasicDataset(Dataset):
             Path to direfctory of masks
         ids: list of strings
             A list of all filenames in the data set 
-        transforn: torchvision.transforms.Compose
+        transform: torchvision.transforms.Compose
             The transformations to be applied to each sample after it is loaded
     '''
     def __init__(self, imgs_dir, masks_dir, transform):

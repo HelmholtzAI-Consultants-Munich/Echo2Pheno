@@ -3,6 +3,7 @@ import sys
 import argparse
 import logging
 
+import constants
 import torch
 from torch.utils.data import DataLoader
 from torchvision.utils import save_image
@@ -18,9 +19,11 @@ from heart_segmentation.utils import dice_confusion_matrix
 from heart_segmentation.quicknat import QuickNat
 from heart_segmentation.dataset import BasicDataset, ResizeNpy
 
-def get_vols(mask, orig_size):
+def return_features(mask, orig_size):
     """
-    This function calculates the lvids and lv vol from a segmentation mask
+    This function calculates the Left Ventricle Inner Diameter (LVID) and Left Ventricle Volume (LV Vol) from a segmentation mask. This is done for 
+    each time instance, i.e. every column in the image. By counting the number of pixels in the mask corresponding to the inner heart and translating
+    this to mm we get the LVID measurement for each time instance. Then using the Teichholz formula we also compute corresponding volumes.
     Parameters
     ----------
         mask: numpy array
@@ -34,7 +37,7 @@ def get_vols(mask, orig_size):
         lvids: list of floats
             List of LVID for each column in the segmentation mask
     """
-    pixel_phys = 0.011525974 # hard coded value - the resolution of each pixel in the y axis in mm
+    pixel_phys = constants.pixel_phys # the resolution of each pixel in the y axis in mm
     heart_vols = []
     lvids = []
     # for each column in image
@@ -135,7 +138,7 @@ def plot_graph(lv, type):
             Defines what is included in lv list          
     """
     # convert pixels in x axis to seconds
-    pixel_sec = 0.00083334 
+    pixel_sec = constants.pixel_sec
     # calculate total time represented in image
     tot_time = len(lv)*pixel_sec
     time = np.linspace(0, tot_time, num=len(lv))
@@ -263,7 +266,7 @@ if __name__ == "__main__":
     # if a single file has been given make heart estimation and plot graphs of lvid and lv vol
     if args.datapath.endswith('.png'):
         mask, orig_size = predict_single(net, device, args.datapath, args.size)
-        volumes, lvids = get_vols(mask, orig_size)
+        volumes, lvids = return_features(mask, orig_size)
         plot_graph(volumes, 'VOL')
         plot_graph(lvids, 'LVID')
     # else generate segmentation masks and stats for a test set
