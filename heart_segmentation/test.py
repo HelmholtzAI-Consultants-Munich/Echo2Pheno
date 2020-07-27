@@ -63,7 +63,7 @@ def return_features(mask, orig_size):
             heart_vols.append(0)
     return heart_vols, lvids
 
-def prepare_img(img, size):
+def _prepare_img(img, size):
     """
     This function prepares a single image to be inputted to the network as would be done by the dataloader for a dataset
     Parameters
@@ -115,7 +115,7 @@ def predict_single(net, device, img_path, size):
         img = img_path
     # apply transforms and convert to torch
     orig_size = img.shape
-    img = prepare_img(img, size)
+    img = _prepare_img(img, size)
     img = img.to(device=device, dtype=torch.float32)
     # make prediction
     mask_pred = net(img)  
@@ -210,8 +210,8 @@ def predict_all(net, device, test_loader, save_dir):
                 print('Done for ', (idx+1)*10//int(0.1*len(test_loader)), '% of testing')
     # print results
     print("Measured loss: ", loss.item()/len(test_loader))
-    print("Average DICE: ", dice_eval/len(test_loader))
-    print("Average MSE: ", mse_eval/len(test_loader))
+    print("Average DICE: ", dice_eval.item()/len(test_loader))
+    print("Average MSE: ", mse_eval.item()/len(test_loader))
 
 
 def get_args():

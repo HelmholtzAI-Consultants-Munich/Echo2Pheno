@@ -1,2 +1,2 @@
 from .quicknat import QuickNat
-from .test import predict_single, get_vols
+from .test import predict_single

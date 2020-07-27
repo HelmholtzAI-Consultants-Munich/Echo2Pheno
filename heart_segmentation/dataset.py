@@ -21,7 +21,7 @@ class BasicDataset(Dataset):
             Path to directory of images
         masks_dir: string
             Path to direfctory of masks
-        transforn: torchvision.transforms.Compose
+        transform: torchvision.transforms.Compose
             The transformations to be applied to each sample after it is loaded
     Attributes
     ----------
