@@ -10,7 +10,8 @@ The data used to train a segmentation network includes only regions annotated wi
 <!---
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/annotation_example.png)--->
 
-A preprocessing script was then used to create segmentation masks from these annotations in order to have a ground truth for training. Next, windows were generated from long images in order to get squared images of varying sizes, similar to as was done in _quality_classification_. An example of an image used for training along with its corresponding mask can be seen here:
+A preprocessing script was then used to create segmentation masks from these annotations in order to have a ground truth for training. Since the images have varying length, a sliding window approach was used next to crop squared windows from the images. If the length of the image is larger than the height then the windows size is _height x height_ whereas if the height is larger than the length the windows size is _length x length_ and croppping is done around the middle of the heart. In this way the training and test set were created. An example of an image used for training along with its corresponding mask can be seen here:
+
 <!---
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/images/TS_Short_9_good_1_nwin2.png)--->
 <!---
