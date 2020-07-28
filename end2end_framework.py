@@ -410,9 +410,6 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
     qual_windows, BEtimes = ec.make_quality_windows_man()
     # classify each window as good or bad
     for i,img in enumerate(qual_windows):
-        plt.imshow(img, cmap='gray')
-        plt.axis('off')
-        plt.savefig(str(i)+'.png')
         label, _ = predict_acq(echo_net, device, img, 256)
         sigs.append(label)
         labels.append(np.round(label))
