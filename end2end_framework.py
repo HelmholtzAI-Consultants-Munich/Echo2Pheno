@@ -431,9 +431,9 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
     med_diastole, avg_diastole, max_diastole, min_diastole, good_lvid_d, times_lvid_d = get_stats_good(labels, BEtimes, dpeaks, dlvids, ec.time_res)
     med_systole, avg_systole, max_systole, min_systole, good_lvid_s, times_lvid_s = get_stats_good(labels, BEtimes, speaks, slvids, ec.time_res)
     med_heartrate, avg_heartrate, max_heartrate, min_heartrate, good_heartrates, times_hr = get_stats_good(labels, BEtimes, dpeaks[:-1], heartrate, ec.time_res)
-    print('Average lvid;d is: ', avg_diastole, ' and average lvid;s is: ', avg_systole)
-    print('Median lvid;d is: ', med_diastole, ' and median lvid;s is: ', med_systole)
-    print('The average heartbeat is: ', avg_heartrate, 'and the median heart rate is: ', med_heartrate)
+    print('Average lvid;d is: ', avg_diastole, ' mm and average lvid;s is: ', avg_systole, ' mm') 
+    print('Median lvid;d is: ', med_diastole, ' mm and median lvid;s is: ', med_systole, ' mm')
+    print('The average heart rate is: ', avg_heartrate, ' bpm and the median heart rate is: ', med_heartrate, ' bpm')
     # append results to file if a csv file has been given in write
     # either stats such as mean, median etc. (1 value for each file)
     if write=='stats':
