@@ -258,7 +258,7 @@ if __name__ == "__main__":
                 'drop_out':0.2}
     net = QuickNat(params) 
     print("Loading model: ", args.model)
-    net.to(device=device)
+    net = net.to(device=device)
     state_dict = torch.load(os.path.join(project_path,args.model), map_location=device)
     net.load_state_dict(state_dict['net_state_dict'])
     print("Model loaded !")

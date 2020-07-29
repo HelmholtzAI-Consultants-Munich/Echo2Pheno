@@ -146,8 +146,9 @@ def predict_dataset(net, device, test_loader, net_run):
         for idx, batch in enumerate(test_loader):
             net = net.double()
             image = batch['image']
-            image.to(device=device, dtype=torch.float32)
+            image = image.to(device=device, dtype=torch.float32)
             label = batch['label']
+            label = label.to(device=device)
             # count total number of negatives and positives
             if label==0:
                 n += 1
@@ -249,7 +250,7 @@ if __name__ == "__main__":
             model_name = os.path.join(args.model, 'bootstrap_net%s.pth'% (i))
             # load model
             net = CardioNet(n_channels=1, n_classes=1)
-            net.to(device=device)
+            net = net.to(device=device)
             net.load_state_dict(torch.load(model_name, map_location=device))
             print("Model loaded !")
             # make predictions with current model on entire data set
@@ -287,7 +288,7 @@ if __name__ == "__main__":
         # load model
         net = CardioNet(n_channels=1, n_classes=1)
         print("Loading model ", args.model)
-        net.to(device=device)
+        net = net.to(device=device)
         net.load_state_dict(torch.load(args.model, map_location=device))
         print("Model loaded !")
         file_names, labels_pred, labels_true, _ = predict_dataset(net, device, test_loader, 100)
