@@ -117,7 +117,6 @@ def predict_dataset(net, device, test_loader, net_run):
             If bootstrapping is not used it is set to 100
     Returns
     -------
-        file_names, labels_pred, labels_true, sig_outputs
         file_names: list of strings
             A list of the filenames of all samples in the test set
         labels_pred: list of ints, 0 or 1
