@@ -211,7 +211,7 @@ def get_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--datapath', '-d', metavar='INPUT', required=True,
                         help='path of input images')
-    parser.add_argument('--model', '-m', default='checkpoints/bootstrap_net0.pth', metavar='FILE',
+    parser.add_argument('--model', '-m', default='checkpoints/quality-clas-net.pth', metavar='FILE',
                         help="Specify the file in which the model is stored")
     parser.add_argument('--bootstrap', '-b', default=False,
                         help="Define whether or not prediction should be made from single model or average")
@@ -252,6 +252,7 @@ if __name__ == "__main__":
             net = net.to(device=device)
             net.load_state_dict(torch.load(model_name, map_location=device))
             print("Model loaded !")
+            print(net)
             # make predictions with current model on entire data set
             file_names, labels_pred, labels_true, sig_outputs = predict_dataset(net, device, test_loader, i)
             # sum sigmoid outputs from all the models so far
@@ -290,6 +291,7 @@ if __name__ == "__main__":
         net = net.to(device=device)
         net.load_state_dict(torch.load(args.model, map_location=device))
         print("Model loaded !")
+        print(type(net))
         file_names, labels_pred, labels_true, _ = predict_dataset(net, device, test_loader, 100)
     # save image name, predictions and true labels in a csv file to evaluate later! 
     if args.output:

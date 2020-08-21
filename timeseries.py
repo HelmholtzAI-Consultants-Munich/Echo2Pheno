@@ -67,6 +67,7 @@ class EchoCard(object):
         img_data_raw = np.dot(img_data_raw [:,:,:,:3], rgb_weights)
         # crop to include only raw image 
         img_data = img_data_raw [:,self.region_min_y:self.region_max_y, self.region_min_x:self.region_max_x] 
+        '''
         # every 10 frames we have no repeating data (visualize dicom to understand) - hardcoded values ahead!
         list_frames = [10, 20, 30, 40]
         self.image = img_data[0]
@@ -74,6 +75,25 @@ class EchoCard(object):
             self.image = np.concatenate((self.image, img_data[i]), axis=1)
         # add the last part missing from frame 40 - hardcoded value ahead!
         self.image = np.concatenate((self.image, img_data[-1, :, 302:]), axis=1)
+        '''
+        self.image = np.copy(img_data[0,:,:])
+        for i in range(img_data.shape[0]-1):
+            frame = img_data[i]
+            next_frame = img_data[i+1]
+            concat_part = find_overlap(frame, next_frame)
+            # if no overlap region was found
+            if concat_part is None:
+                check_equal = frame==next_frame
+                # either frames are identical (length//2 + 1 not checked - see find_overlap loop range)
+                if check_equal.all():
+                    #print('Identical frames found. Going to continue')
+                    pass
+                # or they are completely different
+                else:
+                    print('No overlap found for frame: ', i,'. Taking entire frame')
+                    self.image =  np.concatenate((self.image, next_frame), axis=1)
+            else:
+                self.image =  np.concatenate((self.image, concat_part), axis=1)
     
     def make_quality_windows_aut(self):
         """
@@ -307,6 +327,44 @@ def compute_teicholz(lvids):
         # Teichholz formula = 7/2.4+LVID * LVID^3
         vols.append((7 * lvid**3)/(2.4+lvid))
     return vols
+
+
+def find_overlap(cur_frame, next_frame):
+    """
+    This function receives two successive frames and finds the overlap between the two. This is done by assuming that at least half 
+    of the frame is overlapping. The second half of the current image is taken and with a step of one is slid accross and compared to
+    the next frame. The point where the two matrices are identical marks the begining of the new region of the next frame. This is then
+    extracted from the frame and returned
+    Parameters
+    ----------
+        cur_frame: numpy array
+            The current frame
+        next_frame: numpy array
+            The next frame. The first part should overlap with cur_frame and at a point it should have new image information.
+            
+    Returns
+    ----------
+        new_part_start: numpy array
+            The part of next_frame which is unique and not appearing in the current_frame
+    """
+    new_part_start = 0
+    assert cur_frame.shape == next_frame.shape,'Size mismatch in frames - Exiting!'
+    length = cur_frame.shape[1]
+    # we assume at least half of the image to overlap
+    overlap_part = cur_frame[:,length//2:]
+    # slide through the next frame to find where overlapping part starts
+    for i in range(length//2):
+        next_frame_part = next_frame[:,i:i+length//2]
+        check_equal = overlap_part==next_frame_part
+        # if the matrices match we have found the start point of the overlapping region. Store it and exit the loop
+        if check_equal.all():
+            new_part_start = i+length//2
+            break
+    if new_part_start == 0:
+        return None    
+    else:
+        new_part = next_frame[:, new_part_start:]
+        return new_part
 
 
 
