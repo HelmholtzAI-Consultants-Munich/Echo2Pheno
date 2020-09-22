@@ -19,3 +19,10 @@ def dice_confusion_matrix(vol_output, ground_truth, num_classes, no_samples=10, 
             dice_cm[i, j] = 2 * torch.div(inter, union)
     avg_dice = torch.mean(torch.diagflat(dice_cm))
     return avg_dice, dice_cm
+
+
+def dice_score_binary(pred, gt):
+    inter = torch.sum(torch.mul(gt, pred))
+    union = torch.sum(gt) + torch.sum(pred) + 0.0001
+    return 2*torch.div(inter, union)
+

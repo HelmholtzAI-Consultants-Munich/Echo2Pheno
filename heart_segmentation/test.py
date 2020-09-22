@@ -14,7 +14,7 @@ from matplotlib import pyplot as plt
 PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.join(SCRIPT_DIR, PACKAGE_PARENT))
-from heart_segmentation.utils import dice_confusion_matrix
+from heart_segmentation.utils import dice_score_binary
 import heart_segmentation.constants as constants
 from heart_segmentation.quicknat import QuickNat
 from heart_segmentation.dataset import BasicDataset, ResizeNpy
@@ -195,7 +195,7 @@ def predict_all(net, device, test_loader, save_dir):
             mask_pred = torch.round(mask_pred)  
             # calculate evalutation metrics    
             mse_eval += mse(mask, mask_pred)
-            dice_avg, _ = dice_confusion_matrix(mask_pred, mask, 1)
+            dice_avg = dice_score_binary(mask_pred, mask)
             dice_eval += dice_avg
             # save the first 10 images
             if idx<10:

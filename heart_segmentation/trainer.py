@@ -9,7 +9,7 @@ from torchvision.transforms import RandomAffine, Compose, Resize, ToTensor, Rand
 from tensorboardX import SummaryWriter
 from datetime import datetime
 
-from utils import dice_confusion_matrix
+from utils import dice_score_binary
 from dataset import BasicDataset
 
 class Trainer(object):
@@ -253,7 +253,7 @@ class Trainer(object):
             # calculate evaluation metrics
             mask_pred = torch.round(mask_pred)
             mse_eval += self.mse(mask, mask_pred)
-            dice_avg, _ = dice_confusion_matrix(mask_pred, mask, 1)
+            dice_avg = dice_score_binary(mask_pred, mask) 
             dice_eval += dice_avg
 
             self.global_step += 1
@@ -307,7 +307,7 @@ class Trainer(object):
             # compute mse and dice score
             mask_pred = torch.round(mask_pred)
             avg_mse += self.mse(mask, mask_pred).item()
-            dice_score, _ = dice_confusion_matrix(mask_pred, mask, 1)
+            dice_score = dice_score_binary(mask_pred, mask) 
             avg_dice += dice_score
         # every 2 epochs save image and masks to tensorboard
         if epoch % 2 == 0:
