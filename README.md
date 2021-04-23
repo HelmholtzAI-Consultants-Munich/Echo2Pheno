@@ -17,7 +17,7 @@ To install the necessary packages for this framework run:
 pip install -r requirements.txt
 ```
 
-If you are using conda first install pip by: ```conda install pip```
+If you are using conda first install pip by: ```conda install pip```. The above has been tested with a Python 3.7 environment.
 
 ## Data
 
