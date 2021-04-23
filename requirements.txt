@@ -12,5 +12,4 @@ datetime
 Pillow
 glob2
 scikit-learn
-https://github.com/shayansiddiqui/nn-common-modules/releases/download/v1.0/nn_common_modules-1.0-py2.py3-none-any.whl
-https://github.com/abhi4ssj/squeeze_and_excitation/releases/download/v1.0/squeeze_and_excitation-1.0-py2.py3-none-any.whl
+https://github.com/ai-med/nn-common-modules/releases/download/v1.1/nn_common_modules-1.3-py3-none-any.whl
