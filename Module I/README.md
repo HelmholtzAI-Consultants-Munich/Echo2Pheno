@@ -52,7 +52,7 @@ If you wish to run the automatic feature estimation framework for multiple mice 
 
 **Example run**
 ```
-python run4all.py -i datasets/studyA -m 40 -w all
+python run4study.py -i datasets/studyA -m 40 -w all
 ```
 
 ## Results
