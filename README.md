@@ -9,4 +9,12 @@ This repository provides the code for _Echo2Pheno: A deep learning application t
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Echo2Pheno/blob/master/Echo2Pheno_graphical.png)
 
 
+## Installation
 
+To install the necessary packages for this framework run:
+
+```
+pip install -r requirements.txt
+```
+
+If you are using conda first install pip by: ```conda install pip```. The above has been tested with a Python 3.7 environment.
