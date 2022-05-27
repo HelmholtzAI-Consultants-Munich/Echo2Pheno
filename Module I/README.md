@@ -1,7 +1,7 @@
-# Echo2Pheno
+# Echo2Pheno Module I
 
 ## What is this?
-This repository provides an end to end framework for extracting features from M-mode echocardiography data. The framework can run on one or multiple echocardiograms and creates graphs of various heart features as well as writing useful features to a csv file. The framework first uses a network to classify the echocardiogram into regions of good and bad classification quality. Then it uses a segmentation network to segment the left ventricle inner diameter (LVID) of the heart. For both tasks pre-trained networks are used. With the segmentation of the LVID we then extract the features such as the LVID in diastole and systole, the heart rate etc. The quality classification results are used to write only features from good-classified regions and show these good and bad regions in the graphs. The files in the directory can be explained as:
+This repository provides the code for Module I of Echo2Pheno. It is a framework for extracting features from M-mode echocardiography data. The framework can run on one or multiple echocardiograms and creates graphs of various heart features as well as writing useful features to a csv file. The framework first uses a network to classify the echocardiogram into regions of good and bad classification quality. Then it uses a segmentation network to segment the left ventricle inner diameter (LVID) of the heart. For both tasks pre-trained networks are used. With the segmentation of the LVID we then extract the features such as the LVID in diastole and systole, the heart rate etc. The quality classification results are used to write only features from good-classified regions and show these good and bad regions in the graphs. The files in the directory can be explained as:
 
 * **quality_classification**: This includes all files needed to train and test a classification network to classify regions in an echocardiogram as belonging to good or bad acquisition quality regions.
 * **heart_segmentation**: This includes all files needed to train and test a segmentation network to classify each pixel in an image as belonging or not to the inner heart. The segmentation is then used to extract features, such as the Left Ventricle Inner Diameter (LVID) in diastole and systole, the heart rate etc.
@@ -21,7 +21,7 @@ If you are using conda first install pip by: ```conda install pip```. The above 
 
 ## Data
 
-The end2end framework extracts useful features and graphs from echocardiorgaphy data. The data needs to be in dicom format. All data used was of type Ultrasound Multi Frame Image and contained a total of 49 frames of overlapping regions. 
+The framework extracts useful features and graphs from echocardiorgaphy data. The data needs to be in dicom format. All data used was of type Ultrasound Multi Frame Image and contained a total of 49 frames of overlapping regions. The raw data can be made available upon request.
 
 ## Models
 Both models for quality_classification and heart_segmentation can be trained from scratch following the steps explained in the two sub-directories. However, to instantly use the end2end_framework you can download the trained models [here](https://zenodo.org/record/3941857#.XwxgUC2w3s0). After download place them in the checkpoints dir of each directory, i.e.:
