@@ -11,10 +11,10 @@ This repository provides the code for _Echo2Pheno: A deep learning application t
 
 ## Installation
 
-To install the necessary packages for Echo2Pheno run:
+The code has been tested with Python 3.7 and 3.9 environments. To install the necessary packages for Echo2Pheno run:
 
 ```
 pip install -r requirements.txt
 ```
 
-If you are using conda first install pip by: ```conda install pip```. The code has been tested with Python 3.7 and 3.9 environments.
+If you are using conda you may need to first install pip by: ```conda install pip```. 
