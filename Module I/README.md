@@ -6,7 +6,7 @@ This repository provides the code for Module I of Echo2Pheno. It is a framework 
 * **quality_classification**: This includes all files needed to train and test a classification network to classify regions in an echocardiogram as belonging to high or low acquisition quality regions.
 * **heart_segmentation**: This includes all files needed to train and test a segmentation network to classify each pixel in an image as belonging or not to the inner heart. The segmentation is then used to extract features, such as the Left Ventricle Inner Diameter (LVID) in diastole and systole, the heart rate etc.
 * **run4single.py**: This script can be used to extract features and create figures of a single mouse echocardiogram. For more information on how to run this script see [Running for one echocardiogram](#Running-for-one-echocardiogram).
-* **run4line.py**: This script can be used to extract features and create figures of multiple echocardiograms saved in a single directory, i.e. an entire mouse line. This can be used to export the necessary data for Module II of Echo2Pheno. For more information on how to run this script see [Running for an entire experiment](#Running-for-an-entire-experiment).
+* **run4study.py**: This script can be used to extract features and create figures of multiple echocardiograms saved in a single directory, i.e. an entire mouse study. This can be used to export the necessary data for Module II of Echo2Pheno. For more information on how to run this script see [Running for an entire experiment](#Running-for-an-entire-experiment).
 * **timeseries.py**: Helper class and functions for running the two scripts above.
 
 ## Data
@@ -43,16 +43,16 @@ For running the framework for a single echocardiogram the ```run4single.py``` sc
 
 **Example run**
 ```
-python run4single.py -i /datasets/lineA/30516265.dcm -m 40 -o 30516265
+python run4single.py -i /datasets/studyA/30516265.dcm -m 40 -o 30516265
 ```
 
-## Running for an entire moude line
+## Running for an entire mouse study
 
-If you wish to run the automatic feature estimation framework for multiple mice then you can run the ```run4line.py``` script. This will recursively call the ```run4single.py```. The arguments of this script are similar to those of ```run4single.py``` with the difference that the -i argument should take the path to the directory containing the dicom files from which we wish to extract features.
+If you wish to run the automatic feature estimation framework for multiple mice then you can run the ```run4study.py``` script. This will recursively call the ```run4single.py```. The arguments of this script are similar to those of ```run4single.py``` with the difference that the -i argument should take the path to the directory containing the dicom files from which we wish to extract features.
 
 **Example run**
 ```
-python run4all.py -i datasets/lineA -m 40 -w all
+python run4all.py -i datasets/studyA -m 40 -w all
 ```
 
 ## Results
