@@ -6,6 +6,7 @@ import torch
 import numpy as np
 import statistics as st
 import csv
+import seaborn as sns
 
 from timeseries import EchoCard
 from quality_classification import predict_single as predict_acq
@@ -13,6 +14,24 @@ from quality_classification import CardioNet
 from heart_segmentation import QuickNat 
 from heart_segmentation import predict_single as predict_vol
 
+def lighten_color(color, amount=0.5):
+    """
+    Lightens the given color by multiplying (1-luminosity) by the given amount.
+    Input can be matplotlib color string, hex string, or RGB tuple.
+
+    Examples:
+    >> lighten_color('g', 0.3)
+    >> lighten_color('#F034A3', 0.6)
+    >> lighten_color((.3,.55,.1), 0.5)
+    """
+    import matplotlib.colors as mc
+    import colorsys
+    try:
+        c = mc.cnames[color]
+    except:
+        c = color
+    c = colorsys.rgb_to_hls(*mc.to_rgb(c))
+    return colorsys.hls_to_rgb(c[0], 1 - amount * (1 - c[1]), c[2])
 
 class Graph(object):
     '''
@@ -62,10 +81,10 @@ class Graph(object):
             timeB = BEtime[0]*self.time_per_pixel #int(BEtime[0]*time_per_pixel*len(volumes)/tot_time)
             timeE = BEtime[1]*self.time_per_pixel #int(BEtime[1]*time_per_pixel*len(volumes)/tot_time)
             if label == 1:
-                plt.axvspan(timeB, timeE, facecolor='darkcyan', alpha=0.5, label='_'*i +'Good')
+                plt.axvspan(timeB, timeE, facecolor='gold', alpha=1, label='_'*i +'Good')
                 i+=1
             else:
-                plt.axvspan(timeB, timeE, facecolor='orchid', alpha=0.5, label='_'*j +'Bad')
+                plt.axvspan(timeB, timeE, facecolor='midnightblue', alpha=1, label='_'*j +'Bad')
                 j+=1
 
     def make_graph(self, points, volumes, lvids, title, output_path):
@@ -93,7 +112,8 @@ class Graph(object):
         plt.figure(figsize=[12.8, 9.6])
         # plot LV Vol
         plt.subplot(121) # plt
-        plt.plot(points*self.time_per_pixel, volume) #*10**(9) # [::3] to take every third 
+        #plt.plot(points*self.time_per_pixel, volume) #*10**(9) # [::3] to take every third 
+        sns.lineplot(points*self.time_per_pixel, volume)
         self.add_axvspan()
         plt.legend()
         plt.grid(True)
@@ -103,7 +123,8 @@ class Graph(object):
         plt.title('LV Volume')
         # and LVID
         plt.subplot(122)
-        plt.plot(points*self.time_per_pixel, lvid)
+        #plt.plot(points*self.time_per_pixel, lvid)
+        sns.lineplot(points*self.time_per_pixel, lvid)
         self.add_axvspan()
         plt.legend()
         plt.grid(True)
@@ -209,7 +230,7 @@ class Graph(object):
         """
         fig, ax = plt.subplots()
         ax.imshow(img, cmap='gray') 
-        ax.imshow(mask, cmap='gray', alpha=0.3)
+        ax.imshow(mask, cmap='winter', alpha=0.3)
         xt = np.arange(0, img.shape[1], step=int(0.5/self.time_per_pixel))
         ax.set_xticks(xt)
         xl = np.round_(xt*self.time_per_pixel, 1)
@@ -398,11 +419,26 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
     # compute volumes and lvids for all points in timeseries
     ec.get_vols()
     # get diastole and systole lvid, lv vol and time of occurence (in pixel values)
+    #plt.plot(ec.lvids)
+    
     dpeaks, dlvids, dvols = ec.get_diastoles()
     speaks, slvids, svols = ec.get_systoles() 
+    '''
+    plt.scatter(dpeaks, dlvids, label='g')
+    plt.scatter(speaks, slvids, label='r')
+    plt.legend()
+    plt.show()
+    '''
     # get heartrate in [bpm]
     heartrate = ec.get_heartrate(dpeaks)
-
+    '''
+    print('AAAA', len(dpeaks), len(speaks), len(heartrate))
+    for i in range(len(speaks)):
+        if i<len(speaks)-1:
+            print(speaks[i], dpeaks[i])
+        else:
+            print(speaks[i])
+    '''
     '''-----------QUALITY ACQUISITION PART-----------'''
     # split timeseries to get images for quality classification
     # two lists are returned - one with numpy arrays (image) one with a tuple (startTime, endTime)
@@ -420,7 +456,7 @@ def run(input_path, output_path, weight, graphs=True, write=None, write_file=Non
             os.mkdir(output_path)
         graphs = Graph(ec.time_res, labels, sigs, BEtimes)
         graphs.make_custom_heatmap(ec.image)
-        graphs.make_graph(np.arange(len(ec.vols)), ec.vols, ec.lvids, 'Heart Values Estimation', os.path.join(output_path, 'output_vol.png'))
+        #graphs.make_graph(np.arange(len(ec.vols)), ec.vols, ec.lvids, 'Heart Values Estimation', os.path.join(output_path, 'output_vol.png'))
         graphs.make_graph(dpeaks, dvols, dlvids, 'Diastole', os.path.join(output_path, 'output_diastole.png'))
         graphs.make_graph(speaks, svols, slvids, 'Systole', os.path.join(output_path, 'output_systole.png'))
         graphs.plot_img_mask(ec.image, ec.mask, os.path.join(output_path, 'output_img_mask.png'))
