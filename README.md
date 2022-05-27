@@ -11,7 +11,7 @@ This repository provides the code for _Echo2Pheno: A deep learning application t
 
 ## Installation
 
-To install the necessary packages for this framework run:
+To install the necessary packages for Echo2Pheno run:
 
 ```
 pip install -r requirements.txt
