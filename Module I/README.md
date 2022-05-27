@@ -70,17 +70,8 @@ Example of figures and images created and saved when running ```end2end_framewor
 
 Below you can see the echocardiogram concatenated into one long array. Above it, a color diagram showing the sigmoid output of the classification network in regions of the image. Here the sigmoid output is the output of the network before it is rounded to 0 or 1 (good or bad acquisition) which may also gives us an idea of the uncertainty of the prediction. The heatmap on the right of the image maps the colors to a sigmoid value. 
 
-![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/Module%20I/images/output_img.png)
+![image](https://github.com/HelmholtzAI-Consultants-Munich/Echo2Pheno/blob/master/Module%20I/ModuleI_results_example.png)
 
-The image below shows two plots. The left plot gives the heart rate of the mouse in beats per minute over time during the entire acquisition. The heart rate has been calculated for each heart beat by measuring the distance between two peaks in the beat, i.e. diastoles. Below we can again see the color diagram representing the sigmoid output of the classification network in regions of the image. On the right plot the left ventricle volume in diastole (LVID;d) is given over the heart rate. The color of the points show again the corresponding sigmoid output of the classification network. In this way points corresponding to bad acquisitions (purple, blue points) can be disregarded as they do not captured the true mouse state. Therefore, outliers during bad acquisition quality are more likely to represent some diffuculty during acquisition (e.g. moving transduced, moving mouse) rather than an abnormality of the mouse's heart beat.
+In the two plots below we see the left ventricle volume in systole over time (left) and the left ventricle inner diameter in systole over time (right). The quality of acquisition (in this case good or bad) in regions of the acquisition is shown in both plots. Next, we show the same features but for diastole not systole. Finally, the heart rate of the mouse in beats per minute over time during the entire acquisition is shown on the left and on the right the left ventricle volume in diastole (LVID;d) is given over the heart rate. The heart rate has been calculated for each heart beat by measuring the distance between two peaks in the beat, i.e. diastoles. Below we can again see the color diagram representing the sigmoid output of the classification network in regions of the image. The color of the points show again the corresponding sigmoid output of the classification network. In this way points corresponding to bad acquisitions (purple, blue points) can be disregarded as they do not captured the true mouse state. Therefore, outliers during bad acquisition quality are more likely to represent some diffuculty during acquisition (e.g. moving transduced, moving mouse) rather than an abnormality of the mouse's heart beat.
 
-![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/Module%20I/images/output_heartrate.png)
-
-Next we see again two plots; on the left the left ventricle volume in systole over time is represented, while on the right the left ventricle inner diameter in systole over time is shown. The quality of acquisition (in this case good or bad) in regions of the acquisition is shown in both plots.
-
-![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/Module%20I/images/output_systole.png)
-
-Next, we show the same features but for diastole not systole.
-
-![image](https://github.com/HelmholtzAI-Consultants-Munich/Automatic-Heart-Features-Estimation-from-Transthoracic-M-mode-Echocardiography/blob/master/Module%20I/images/output_diastole.png)
 
