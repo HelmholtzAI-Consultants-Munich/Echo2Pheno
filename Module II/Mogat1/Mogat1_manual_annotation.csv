@@ -1,0 +1,6 @@
+mouse_id,strain,sex,genotype,type,bw,EF_manual,FS_manual,LVIDd_manual,LVIDs_manual
+30522930,C57BL/6N,m,control,wt (Mogat1),26.6,71.25,39.12,3.14,1.91
+30522934,C57BL/6N,m,control,wt (Mogat1),25.4,81.02,48.28,2.97,1.58
+30522955,C57BL/6N,f,control,wt (Mogat1),22.5,88.97,57.67,2.83,1.25
+30523041,C57BL/6N,f,control,wt (Mogat1),24.8,83.89,51.59,3.34,1.58
+30523156,C57BL/6N,f,control,wt (Mogat1),21.3,92.86,63.82,2.73,0.98

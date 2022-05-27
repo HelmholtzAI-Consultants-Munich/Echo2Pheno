@@ -1,0 +1,9 @@
+mouse_id,strain,sex,genotype,type,bw,EF_manual,FS_manual,LVIDd_manual,LVIDs_manual
+30503270,C57BL/6N,f,control,wt (Tnks),22.8,87.4,55.06,2.39,1.13
+30503301,C57BL/6N,f,control,wt (Tnks),23.8,92.13,62.73,2.63,1.01
+30503302,C57BL/6N,f,control,wt (Tnks),22.5,80.57,47.86,3.11,1.7
+30503326,C57BL/6N,m,control,wt (Tnks),27.2,88.5,56.85,2.86,1.21
+30503770,C57BL/6N,m,control,wt (Tnks),26,87.12,55.28,3.12,1.37
+30503771,C57BL/6N,m,control,wt (Tnks),26.5,87.24,55.36,2.81,1.27
+30503774,C57BL/6N,m,control,wt (Tnks),30.1,84.88,52.09,2.54,1.19
+30503775,C57BL/6N,m,control,wt (Tnks),29.7,82.01,49.33,3.06,1.55

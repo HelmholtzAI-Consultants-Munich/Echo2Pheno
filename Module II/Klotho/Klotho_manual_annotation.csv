@@ -1,0 +1,5 @@
+mouse_id,strain,sex,genotype,type,bw,EF_manual,FS_manual,LVIDd_manual,LVIDs_manual
+30510911,C57BL/6N,f,control,wt (Klotho),21,67.16,36.4,3.48,2.25
+30510919,C57BL/6N,f,control,wt (Klotho),21,87.54,55.59,2.67,1.28
+30510922,C57BL/6N,m,control,wt (Klotho),25.6,93.08,64.16,2.57,1.0
+30510925,C57BL/6N,f,control,wt (Klotho),21.1,91.25,60.89,2.61,1.03

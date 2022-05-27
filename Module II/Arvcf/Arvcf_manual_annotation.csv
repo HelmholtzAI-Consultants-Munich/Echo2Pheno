@@ -1,0 +1,24 @@
+mouse_id,strain,sex,genotype,type,bw,EF_manual,FS_manual,LVIDd_manual,LVIDs_manual
+30507366,C57BL/6N,f,control,wt (Arvcf),23.2,85.86,53.62,3.02,1.39
+30507367,C57BL/6N,f,control,wt (Arvcf),22.2,96.75,72.6,2.36,0.68
+30507398,C57BL/6N,f,control,wt (Arvcf),25.4,92.91,63.67,2.6,0.89
+30507433,C57BL/6N,f,control,wt (Arvcf),25,94.79,67.69,2.42,0.83
+30507450,C57BL/6N,m,control,wt (Arvcf),29,93.61,65.45,2.9,0.99
+30507474,C57BL/6N,f,control,wt (Arvcf),23.3,88.17,56.22,2.57,1.11
+30507496,C57BL/6N,m,control,wt (Arvcf),27.8,90.52,59.88,2.58,1.12
+30507499,C57BL/6N,f,control,wt (Arvcf),28.1,87.44,55.78,3.04,1.31
+30507500,C57BL/6N,m,control,wt (Arvcf),29.2,78.93,45.73,2.7,1.46
+30507503,C57BL/6N,m,control,wt (Arvcf),27.3,88.16,56.62,2.72,1.23
+30507504,C57BL/6N,m,control,wt (Arvcf),27,93.84,65.43,2.41,0.82
+30507840,C57BL/6N,m,control,wt (Arvcf),24,84.87,52.05,2.58,1.23
+30513126,C57BL/6N,m,control,wt (Arvcf),34,91.66,61.89,2.85,1.06
+30513134,C57BL/6N,f,control,wt (Arvcf),22.1,84.07,51.08,2.54,1.28
+30513135,C57BL/6N,f,control,wt (Arvcf),22,82.07,48.98,2.77,1.36
+30513138,C57BL/6N,m,control,wt (Arvcf),24,82.07,49.01,2.64,1.39
+30513152,C57BL/6N,f,control,wt (Arvcf),23.9,91.15,60.42,2.32,0.92
+30513178,C57BL/6N,m,control,wt (Arvcf),30.1,89.84,58.97,2.83,1.2
+30513191,C57BL/6N,m,control,wt (Arvcf),24.1,88.52,56.64,2.43,1.11
+30513194,C57BL/6N,f,control,wt (Arvcf),22.1,82.69,49.73,2.75,1.39
+30513215,C57BL/6N,m,control,wt (Arvcf),27.8,91.36,61.05,2.51,1.0
+30513298,C57BL/6N,f,control,wt (Arvcf),22.6,94.74,67.5,2.48,0.77
+30513539,C57BL/6N,f,control,wt (Arvcf),24.8,93.15,64.31,2.53,0.89

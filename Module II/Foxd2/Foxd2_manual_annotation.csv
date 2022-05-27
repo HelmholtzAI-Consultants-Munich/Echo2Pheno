@@ -1,0 +1,3 @@
+mouse_id,strain,sex,genotype,type,bw,EF_manual,FS_manual,LVIDd_manual,LVIDs_manual
+30504924,C57BL/6N,f,control,wt (Foxd2),23,89.23,57.7,2.53,1.11
+30504935,C57BL/6N,f,control,wt (Foxd2),26.2,90.93,60.87,3.07,1.25

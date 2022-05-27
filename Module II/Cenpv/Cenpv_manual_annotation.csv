@@ -1,0 +1,4 @@
+mouse_id,strain,sex,genotype,type,bw,EF_manual,FS_manual,LVIDd_manual,LVIDs_manual
+30516994,C57BL/6N,m,control,wt (Cenpv),28.1,93.3,65.05,2.81,1.03
+30517195,C57BL/6N,m,control,wt (Cenpv),23.7,86.24,53.98,2.76,1.26
+30517201,C57BL/6N,f,control,wt (Cenpv),22.3,94.08,65.94,2.47,0.83
