@@ -1,20 +1,20 @@
 # Echo2Pheno Module I
 
 ## What is this?
-This repository provides the code for Module I of Echo2Pheno. It is a framework for extracting features from M-mode echocardiography data. The framework can run on one or multiple echocardiograms and creates graphs of various heart features as well as writing useful features to a csv file. The framework first uses a network to classify the echocardiogram into regions of good and bad classification quality. Then it uses a segmentation network to segment the left ventricle inner diameter (LVID) of the heart. For both tasks pre-trained networks are used. With the segmentation of the LVID we then extract the features such as the LVID in diastole and systole, the heart rate etc. The quality classification results are used to write only features from good-classified regions and show these good and bad regions in the graphs. The files in the directory can be explained as:
+This repository provides the code for Module I of Echo2Pheno. It is a framework for extracting features from M-mode echocardiography data. The framework can run on one or multiple echocardiograms and creates graphs of various heart features as well as exports useful features to a csv file. Module I first uses a network to classify the echocardiogram into regions of high and low acquisition quality. Then it uses a segmentation network to segment the left ventricle inner diameter (LVID) traces of the heart. For both tasks pre-trained networks are used. From the segmentation of the LVID features are then extracted, such as the LVID in diastole and systole, the heart rate etc. The quality classification results are used to write only features from high quality regions and show these high and low regions in the resulting figures. The files in the directory can be explained as:
 
-* **quality_classification**: This includes all files needed to train and test a classification network to classify regions in an echocardiogram as belonging to good or bad acquisition quality regions.
+* **quality_classification**: This includes all files needed to train and test a classification network to classify regions in an echocardiogram as belonging to high or low acquisition quality regions.
 * **heart_segmentation**: This includes all files needed to train and test a segmentation network to classify each pixel in an image as belonging or not to the inner heart. The segmentation is then used to extract features, such as the Left Ventricle Inner Diameter (LVID) in diastole and systole, the heart rate etc.
-* **end2end_framework.py**: This script can be used to extract features and create graphs of a single echocardiogram. For more information on how to run this script see [Running for one echocardiogram](#Running-for-one-echocardiogram).
-* **run4all.py**: This script can be used to extract features and create graphs of multiple echocardiograms saved in a single directory. For more information on how to run this script see [Running for an entire experiment](#Running-for-an-entire-experiment).
+* **run4single.py**: This script can be used to extract features and create figures of a single mouse echocardiogram. For more information on how to run this script see [Running for one echocardiogram](#Running-for-one-echocardiogram).
+* **run4line.py**: This script can be used to extract features and create figures of multiple echocardiograms saved in a single directory, i.e. an entire mouse line. This can be used to export the necessary data for Module II of Echo2Pheno. For more information on how to run this script see [Running for an entire experiment](#Running-for-an-entire-experiment).
 * **timeseries.py**: Helper class and functions for running the two scripts above.
 
 ## Data
 
-The framework extracts useful features and graphs from echocardiorgaphy data. The data needs to be in dicom format. All data used was of type Ultrasound Multi Frame Image and contained a total of 49 frames of overlapping regions. The raw data can be made available upon request.
+Module I extracts useful heart related features and creates figures from echocardiorgaphy data. The data needs to be in dicom format. All data used was of type Ultrasound Multi Frame Image and contained a total of 49 frames of overlapping regions. The raw data can be made available upon request.
 
 ## Models
-Both models for quality_classification and heart_segmentation can be trained from scratch following the steps explained in the two sub-directories. However, to instantly use the end2end_framework you can download the trained models [here](https://zenodo.org/record/3941857#.XwxgUC2w3s0). After download place them in the checkpoints dir of each directory, i.e.:
+Both models for quality_classification and heart_segmentation can be trained from scratch following the steps explained in the two sub-directories. However, to instantly use the Module I you can download the trained models [here](https://zenodo.org/record/3941857#.XwxgUC2w3s0). After download place them in the checkpoints dir of each directory, i.e.:
 
 ```
 --quality_classification
@@ -27,7 +27,7 @@ Both models for quality_classification and heart_segmentation can be trained fro
 
 ## Running for one echocardiogram
 
-For running the framework for a single echocardiogram the ```end2end_framework.py``` script can be used. The following arguments should/can be given:
+For running the framework for a single echocardiogram the ```run4single.py``` script can be used. The following arguments should/can be given:
 
 **Required arguments**
 
@@ -43,25 +43,22 @@ For running the framework for a single echocardiogram the ```end2end_framework.p
 
 **Example run**
 ```
-python end2end_framework.py -i home/datasets/cardioMice/30516265.dcm -m 40 -o 30516265
+python run4single.py -i /datasets/lineA/30516265.dcm -m 40 -o 30516265
 ```
 
 ## Running for an entire experiment
 
-If you wish to run the automatic feature estimation framework for multiple mice then you can run the ```run4all.py``` script. This will recursively call the ```end2end_framework.py```. The arguments of this script are the similar to those of the ```end2end_framework.py``` with the difference that the -i argument should take the path to the directory containing the dicom files from which we wish to extract features.
+If you wish to run the automatic feature estimation framework for multiple mice then you can run the ```run4line.py``` script. This will recursively call the ```run4single.py```. The arguments of this script are similar to those of ```run4single.py``` with the difference that the -i argument should take the path to the directory containing the dicom files from which we wish to extract features.
 
 **Example run**
 ```
-python run4all.py -i home/datasets/cardioMice/ -m 40 -w all
+python run4all.py -i datasets/lineA -m 40 -w all
 ```
 
 ## Results
-Example of figures and images created and saved when running ```end2end_framework.py```.
 
-Below you can see the echocardiogram concatenated into one long array. Above it, a color diagram showing the sigmoid output of the classification network in regions of the image. Here the sigmoid output is the output of the network before it is rounded to 0 or 1 (good or bad acquisition) which may also gives us an idea of the uncertainty of the prediction. The heatmap on the right of the image maps the colors to a sigmoid value. 
+An example of the outputs produced by Module I can be seen in the figure below. Subfigure A shows the entire echocardiogram concatenated into one long array. Above it, a color diagram shows the sigmoid output of the classification network in regions of the image (which is then classified into high and low quality with a threshold of 0.5). This output may also give us an idea of the uncertainty of the prediction. The heatmap on the left of the image maps the colors to the probability. 
 
 ![image](https://github.com/HelmholtzAI-Consultants-Munich/Echo2Pheno/blob/master/Module%20I/ModuleI_results_example.png)
 
-In the two plots below we see the left ventricle volume in systole over time (left) and the left ventricle inner diameter in systole over time (right). The quality of acquisition (in this case good or bad) in regions of the acquisition is shown in both plots. Next, we show the same features but for diastole not systole. Finally, the heart rate of the mouse in beats per minute over time during the entire acquisition is shown on the left and on the right the left ventricle volume in diastole (LVID;d) is given over the heart rate. The heart rate has been calculated for each heart beat by measuring the distance between two peaks in the beat, i.e. diastoles. Below we can again see the color diagram representing the sigmoid output of the classification network in regions of the image. The color of the points show again the corresponding sigmoid output of the classification network. In this way points corresponding to bad acquisitions (purple, blue points) can be disregarded as they do not captured the true mouse state. Therefore, outliers during bad acquisition quality are more likely to represent some diffuculty during acquisition (e.g. moving transduced, moving mouse) rather than an abnormality of the mouse's heart beat.
-
-
+In the two plots below we see the LVID signal in diastole(subplot B) and systole(subplot C). The quality of acquisition (in this case rounded to high or low) in regions of the acquisition is shown in both plots. Outliers during low acquisition quality are more likely to represent some diffuculty during acquisition (e.g. moving transduced, moving mouse) rather than an abnormality of the mouse's heart beat and can therefore be disregarded.
