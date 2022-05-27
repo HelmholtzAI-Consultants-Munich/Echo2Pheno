@@ -46,7 +46,7 @@ For running the framework for a single echocardiogram the ```run4single.py``` sc
 python run4single.py -i /datasets/lineA/30516265.dcm -m 40 -o 30516265
 ```
 
-## Running for an entire experiment
+## Running for an entire moude line
 
 If you wish to run the automatic feature estimation framework for multiple mice then you can run the ```run4line.py``` script. This will recursively call the ```run4single.py```. The arguments of this script are similar to those of ```run4single.py``` with the difference that the -i argument should take the path to the directory containing the dicom files from which we wish to extract features.
 
