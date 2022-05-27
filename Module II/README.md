@@ -31,7 +31,7 @@ In the Jupyter Notebook one can see how the data was analysed and how the figure
 3. Run analysis overview : analyse_dataset_overall.ipynb
 
 # Results
-
+![image](https://github.com/HelmholtzAI-Consultants-Munich/Echo2Pheno/blob/master/Module%20II/p_values_ordered.png)
 
 # Content
 1. **Project folders** [GENE_NAME]: <br>
