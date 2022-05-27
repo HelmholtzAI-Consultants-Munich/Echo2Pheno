@@ -1,9 +1,9 @@
 .Rhistory
 .DS_Store
 __pycache__/
-heart_segmentation/.DS_Store
-heart_segmentation/__pycache__/
-heart_segmentation/checkpoints/
-quality_classification/.DS_Store
-quality_classification/__pycache__/
-quality_classification/checkpoints/
+Module I/heart_segmentation/.DS_Store
+Module I/heart_segmentation/__pycache__/
+Module I/heart_segmentation/checkpoints/
+Module I/quality_classification/.DS_Store
+Module I/quality_classification/__pycache__/
+Module I/quality_classification/checkpoints/
