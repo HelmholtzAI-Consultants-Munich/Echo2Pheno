@@ -35,7 +35,7 @@ In the Jupyter Notebook one can see how the data was analysed and how the figure
 
 # Content
 1. **Project folders** [GENE_NAME]: <br>
-The analysis included several mouse lines. For every line a folder is given with it's data and one analysis notebook:<br>
+The analysis included several mouse studies. For every study a folder is given with it's data and one analysis notebook:<br>
 
 |         | **Filename**                                                                          | **Description**                      |
 | ----------- | --------------------------------------------- |--------------------------------------------------------------------------|
