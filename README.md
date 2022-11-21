@@ -1,5 +1,7 @@
 # Echo2Pheno
 
+![stability-frozen](https://img.shields.io/badge/stability-locked-blue.svg)
+
 ## What is this?
 This repository provides the code for _Echo2Pheno: A deep learning application to uncover echocardiographic phenotypes_. Echo2Pheno consists of two modules:
 
