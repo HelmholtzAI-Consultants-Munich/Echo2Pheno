@@ -1,6 +1,7 @@
 # Echo2Pheno
 
 ![stability-frozen](https://img.shields.io/badge/stability-locked-blue.svg)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/HelmholtzAI-Consultants-Munich/Echo2Pheno)
 
 ## What is this?
 This repository provides the code for _Echo2Pheno: A deep learning application to uncover echocardiographic phenotypes_. Echo2Pheno consists of two modules:
